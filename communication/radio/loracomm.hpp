@@ -26,6 +26,10 @@
 #define LORACOMM_SEND_QUEUE_MAX     16  // Maximum number of payloads that can be on the send queue at one time.
 #define LORACOMM_SEND_RETRY_MAX     3   // Maximum number of retries before dropping if no ACK reply, when required.
 
+#define LORACOMM_DELAY_MAX_MS   3000    // Max calculated value by the signal delay calculation function
+#define LORACOMM_RETRY_IN_MS    LORACOMM_DELAY_MAX_MS   // Time between retries
+#define LORACOMM_TIMEOUT_MS     ((LORACOMM_DELAY_MAX_MS+LORACOMM_RETRY_IN_MS)*LORACOMM_SEND_RETRY_MAX)  // Total time after which Terminal can be considered not reachable, new payload must be created
+
 //user callbacks
 typedef std::function<void(uint32_t radioId, const uint8_t* payload, size_t size, int rssi, float snr)> LoRaOnReceiveCallback;
 
@@ -78,7 +82,6 @@ typedef struct {
 } LoRaHeader_t;
 
 typedef struct {
-    bool        requiresACK;
     uint8_t     retryCount;
     uint64_t    nextRetryAt;
     size_t      payloadSize;    // if == 0, then assume this element in the 'm_sendQueue' is empty
@@ -92,6 +95,12 @@ typedef struct {
     int rssi;
     float snr;
 } LoRaSignalQuality_t;
+
+typedef struct {
+    bool isTerminal;
+    bool requireAck;
+    bool isAck;
+} LoRaFlags_t;
 
 
 class LoRaComm {
@@ -254,19 +263,25 @@ class LoRaComm {
          * @brief   Updates the signal quality data structure with latest data.
          * @param   radioId RadioId of the controller that sent the payload.
          * @param   rssi Signal strenght.
-         * @param   snr Signal to noise ratio.
          */
-        void _updateSignalQuality(uint32_t radioId, int rssi, float snr);
+        void _updateSignalQuality(uint32_t radioId, int rssi);
+
+        /**
+         * @brief   Calculate the amount of ms that should be used to delay a paylaod send, based on signal quality.
+         * @param   radioId RadioId of the controller that want to send the payload to.
+         * @return  Amount of ms that should be delayed before sending the payload.
+         * @note    Allows for better payload / air management.
+         */
+        uint32_t _calculateSendDelayFromSignalQuality(uint32_t radioId);
 
         /**
          * @brief   Add to the send queue a payload to be sent.
-         * @param   requiresACK True if this payload should receive a ACK reply.
-         * @param   delay How long in millis to delay the send of this payload.
-         * @param   payloadSize Size in bytes of the entire payload, including header.
          * @param   payload The entire payload, including header which can be accessed by casting this pointer to 'LoRaSend_t*'.
+         * @param   payloadSize Size in bytes of the entire payload, including header.
+         * @param   delay How long in millis to delay the send of this payload.
          * @return  True if there was space and was added, false if queue is full of payload size above 'LORA_PACKET_MAX_SIZE'.
          */
-        bool _queueSendAdd(bool requiresACK, uint64_t delay, size_t payloadSize, uint8_t* payload);
+        bool _queueSendAdd(uint8_t* payload, size_t payloadSize, uint32_t delay);
 
         /**
          * @brief   Remove a payload from the send queue.
@@ -279,6 +294,25 @@ class LoRaComm {
          * @return  Pointer to LoRaSend_t, NULL if send queue is empty.
          */
         LoRaSend_t* _queueSendGetReady();
+
+        /**
+         * @brief   Manages the send queue by sending to hardware the next ready payload, and managing ACKs.
+         */
+        void _manageQueueSend();
+
+        /**
+         * @brief   Decode header flags and place then in a struct for easy usage.
+         * @param   encodedFlags Byte with encoded header flags.
+         * @param   flags Pointer to struct where to place the decoded flags.
+         */
+        void _flagsDecode(uint8_t encodedFlags, LoRaFlags_t* flags);
+
+        /**
+         * @brief   Encode flags to a byte to be sent in the header.
+         * @param   flags Pointer to struct where to get the flags to encode.
+         * @return  Byte that has the encoded header flags.
+         */
+        uint8_t _flagsEncode(LoRaFlags_t* flags);
 
 
         LoRaTxRx m_lora;            // Hardware used for lora commuincation.
