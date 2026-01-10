@@ -37,6 +37,7 @@
 #include "utils/time.hpp"
 #include "utils/watchdog.hpp"
 #include "utils/memory.hpp"
+#include "utils/calculation.hpp"
 
 #include "system/board.hpp"
 #include "system/interrupt.hpp"

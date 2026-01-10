@@ -33,6 +33,12 @@ class IRelays {
         virtual ~IRelays() = default;
 
         /**
+         * @brief   Invalidates all modules and relays state.
+         * @note    Useful for example to ensure all relays states are reported to MQTT upon reconnect.
+         */
+        void invalidateAll();
+
+        /**
          * @brief   Set a relay to a new state.
          * @param   module Module index.
          * @param   relay Relay index inside the module.

@@ -1,11 +1,9 @@
 #include "loracomm.hpp"
 #include "utils/crypto.hpp"
 #include "utils/log.hpp"
+#include "utils/calculation.hpp"
 #include <string.h>
 #include <math.h>
-#ifdef ESP_PLATFORM
-    #include <esp_random.h>
-#endif
 
 #define PINICORE_TAG_LORACOMM    "pcore_loracomm"
 #define PINICORE_TAG_LORACOMM_CB "pcore_loracomm_cb"
@@ -13,6 +11,8 @@
 #define LORACOMM_RSSI_WORST -120
 #define LORACOMM_RSSI_BEST  -40
 #define LORACOMM_RSSI_CALC_FACTOR 3
+
+#define LORACOMM_TERMINAL_MAX_VARIATION_MS 250  // Time in ms that terminal delay calculation can reach, ranging from 0 up to this value.
 
 
 bool LoRaComm::init(
@@ -109,6 +109,7 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
     uint8_t tagId = header->tagId;
     LOG_D(PINICORE_TAG_LORACOMM_CB, "Received: [radioId: %d] [tagId: %d] [size: %d] [rssi: %d] [snr: %0.2f]", radioId, tagId, size, rssi, snr);
     if (m_isTerminal && m_terminalRadioId != radioId) {
+        LOG_T(PINICORE_TAG_LORACOMM, "Payload not for me, discarding...");
         return; // Discard payloads not directed to me if I am a Terminal
     }
     
@@ -116,15 +117,15 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
 
     bool requiresAck = (header->flags & (0x1 << LORACOMM_FLAG_IDX_REQUIRE_ACK)) != 0;
     if (requiresAck) {
-        LOG_W(PINICORE_TAG_LORACOMM_CB, "Requires ACK received!");
+        LOG_T(PINICORE_TAG_LORACOMM_CB, "Requires ACK, adding send ACK to queue");
         _sendAck(radioId, tagId, checksum);
-        return;
     }
 
     bool isAck = (header->flags & (0x1 << LORACOMM_FLAG_IDX_IS_ACK)) != 0;
     if (isAck) {
-        // TODO:
-        LOG_W(PINICORE_TAG_LORACOMM_CB, "ACK received! TODO: handle send queue by removing that 'radioId' and 'checksum' that is in the payload, from the send queue");
+        LoRaSend_t* send = _queueSendFind(radioId, checksum);
+        _queueSendRemove(send);
+        LOG_T(PINICORE_TAG_LORACOMM_CB, "ACK received! [pointer of send: 0x%x]", send);
         return;
     }
     
@@ -206,7 +207,8 @@ void LoRaComm::_updateSignalQuality(uint32_t radioId, int rssi) {
 
 uint32_t LoRaComm::_calculateSendDelayFromSignalQuality(uint32_t radioId) {
     if (m_isTerminal) {
-        return 0;
+        // Since I am a terminal, only add a small delay variation to further improve collision handling
+        return (randomGenerator() % (LORACOMM_TERMINAL_MAX_VARIATION_MS + 1));
     }
 
     /**
@@ -233,17 +235,13 @@ uint32_t LoRaComm::_calculateSendDelayFromSignalQuality(uint32_t radioId) {
             // exponential delay formula
             float ratio = (rssi - LORACOMM_RSSI_BEST) / static_cast<float>(LORACOMM_RSSI_WORST - LORACOMM_RSSI_BEST);
             float delay = LORACOMM_DELAY_MAX_MS * powf(ratio, LORACOMM_RSSI_CALC_FACTOR);
+            
             return static_cast<uint32_t>(delay);
         }
     }
 
     // Not found, use random delay
-#ifdef ESP_PLATFORM
-    uint32_t notFoundDelay = esp_random() % (LORACOMM_DELAY_MAX_MS+1);
-#else
-    uint32_t notFoundDelay = (rand() % (LORACOMM_DELAY_MAX_MS+1));
-#endif
-    return notFoundDelay;   // 0 to LORACOMM_DELAY_MAX_MS
+    return (randomGenerator() % (LORACOMM_DELAY_MAX_MS + 1));
 }
 
 bool LoRaComm::_queueSendAdd(uint8_t* payload, size_t payloadSize, uint32_t delay) {
@@ -251,7 +249,6 @@ bool LoRaComm::_queueSendAdd(uint8_t* payload, size_t payloadSize, uint32_t dela
         LOG_D(PINICORE_TAG_LORACOMM, "Unable to queue payload for send, payload size too big");
         return false; // payload too big
     }
-
 
     for (int i=0; i<LORACOMM_SEND_QUEUE_MAX; ++i) {
         LoRaSend_t* sendElement = &m_sendQueue[i];
@@ -262,9 +259,8 @@ bool LoRaComm::_queueSendAdd(uint8_t* payload, size_t payloadSize, uint32_t dela
             sendElement->nextRetryAt = nextRetryAt;
             sendElement->payloadSize = payloadSize;
             memcpy(sendElement->payload, payload, payloadSize);
-            //
-            LoRaHeader_t* sendHeader = (LoRaHeader_t*)&sendElement->payload;
             
+            LoRaHeader_t* sendHeader = (LoRaHeader_t*)&sendElement->payload;
             LOG_D(PINICORE_TAG_LORACOMM,
                 "Added payload (%d bytes) to send queue, sending in %d ms: [radioId: %d] [tagId: %d] [flags: 0x%02x]",
                 payloadSize, delay, sendHeader->radioId, sendHeader->tagId, sendHeader->flags 
@@ -295,7 +291,20 @@ LoRaSend_t* LoRaComm::_queueSendGetReady() {
             sendElement->payloadSize != 0 &&
             sendElement->nextRetryAt <= currMillis
         ) {
-            return &m_sendQueue[i];
+            return sendElement;
+        }
+    }
+    return NULL;
+}
+
+LoRaSend_t* LoRaComm::_queueSendFind(uint32_t radioId, uint32_t checksum) {
+    for (int i=0; i<LORACOMM_SEND_QUEUE_MAX; ++i) {
+        LoRaSend_t* sendElement = &m_sendQueue[i];
+        if (sendElement->payloadSize != 0) {
+            LoRaHeader_t* header = (LoRaHeader_t*)&sendElement->payload;
+            if (header->radioId == radioId && header->checksum) {
+                return sendElement;
+            }
         }
     }
     return NULL;
@@ -319,6 +328,7 @@ void LoRaComm::_manageQueueSend() {
     else {
         uint64_t currMillis = getMillis();
         uint64_t oldRetryAt = sendNextReady->nextRetryAt;
+
         sendNextReady->nextRetryAt =
             (currMillis + LORACOMM_RETRY_IN_MS) +
             (currMillis - oldRetryAt);

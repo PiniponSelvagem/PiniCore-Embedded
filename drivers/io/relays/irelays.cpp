@@ -10,6 +10,11 @@
 #define RELAYS_ON_TXT    RELAYS_ON_COLOR  " ON" RELAYS_RST_COLOR
 #define RELAYS_OFF_TXT   RELAYS_OFF_COLOR "OFF" RELAYS_RST_COLOR
 
+void IRelays::invalidateAll() {
+    for (int i=0; i<p_modules; ++i) {
+        resetModuleState(i);
+    }
+}
 
 bool IRelays::set(uint8_t module, uint8_t relay, bool state) {
     if (module >= p_modules || relay >= p_relaysPerModule)

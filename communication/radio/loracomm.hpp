@@ -26,9 +26,9 @@
 #define LORACOMM_SEND_QUEUE_MAX     16  // Maximum number of payloads that can be on the send queue at one time.
 #define LORACOMM_SEND_RETRY_MAX     3   // Maximum number of retries before dropping if no ACK reply, when required.
 
-#define LORACOMM_DELAY_MAX_MS   3000    // Max calculated value by the signal delay calculation function
-#define LORACOMM_RETRY_IN_MS    LORACOMM_DELAY_MAX_MS   // Time between retries
-#define LORACOMM_TIMEOUT_MS     ((LORACOMM_DELAY_MAX_MS+LORACOMM_RETRY_IN_MS)*LORACOMM_SEND_RETRY_MAX)  // Total time after which Terminal can be considered not reachable, new payload must be created
+#define LORACOMM_DELAY_MAX_MS           3000    // Max calculated value by the signal delay calculation function
+#define LORACOMM_RETRY_IN_MS            LORACOMM_DELAY_MAX_MS   // Time between retries
+#define LORACOMM_TIMEOUT_MS             ((LORACOMM_DELAY_MAX_MS+LORACOMM_RETRY_IN_MS)*LORACOMM_SEND_RETRY_MAX)  // Total time after which Terminal can be considered not reachable, new payload must be created
 
 //user callbacks
 typedef std::function<void(uint32_t radioId, const uint8_t* payload, size_t size, int rssi, float snr)> LoRaOnReceiveCallback;
@@ -294,6 +294,14 @@ class LoRaComm {
          * @return  Pointer to LoRaSend_t, NULL if send queue is empty.
          */
         LoRaSend_t* _queueSendGetReady();
+
+        /**
+         * @brief   Search for payload in the send queue that is for 'radioId' and with 'checksum'.
+         * @param   radioId To who the payload is for, radio identifier, also known as controller 'serial'.
+         * @param   checksum Checksum of the payload content.
+         * @return  Pointer to LoRaSend_t, NULL if not found in the send queue.
+         */
+        LoRaSend_t* _queueSendFind(uint32_t radioId, uint32_t checksum);
 
         /**
          * @brief   Manages the send queue by sending to hardware the next ready payload, and managing ACKs.
