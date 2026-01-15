@@ -56,6 +56,8 @@
 
 #include "drivers/communication/lora.hpp"
 
+#include "drivers/energy/battery.hpp"
+
 #include "storage/storage.hpp"
 
 #include "communication/network/inetwork.hpp"

@@ -13,7 +13,7 @@ const char* getUniqueId() {
         uint8_t baseMac[6];
         if (esp_read_mac(baseMac, ESP_MAC_WIFI_STA) == ESP_OK) { // Get MAC address for WiFi station
             __hasUniqueId = true;
-            sprintf(__uniqueId, "%02X%02X%02X%02X%02X%02X", baseMac[0], baseMac[1], baseMac[2], baseMac[3], baseMac[4], baseMac[5]);
+            sprintf(__uniqueId, "%02x%02x%02x%02x%02x%02x", baseMac[0], baseMac[1], baseMac[2], baseMac[3], baseMac[4], baseMac[5]);
         }
     }
     return __uniqueId;

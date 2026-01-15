@@ -1,5 +1,50 @@
 {
-  "frameworks": ["arduino"],
-  "platforms": "*",
-  "headers": "pinicore.hpp"
+    "name": "PiniCore",
+    "version": "1.0.0-alpha",
+    "description": "Pini Embedded Library",
+    "frameworks": ["arduino"],
+    "platforms": ["espressif32"],
+    "headers": "pinicore.hpp",
+    "dependencies": [
+        {
+            "owner": "adafruit",
+            "name": "Adafruit MCP23017 Arduino Library",
+            "version": "2.3.2"
+        },
+        {
+            "owner": "bblanchon",
+            "name": "ArduinoJson",
+            "version": "7.4.2"
+        },
+        {
+            "owner": "arduino-libraries",
+            "name": "ArduinoHttpClient",
+            "version": "0.6.1"
+        },
+        {
+            "owner": "robtillaart",
+            "name": "CRC",
+            "version": "1.0.3"
+        },
+        {
+            "owner": "sandeepmistry",
+            "name": "LoRa",
+            "version": "0.8.0"
+        },
+        {
+            "owner": "knolleary",
+            "name": "PubSubClient",
+            "version": "2.8"
+        },
+        {
+            "name": "SSLClientESP32",
+            "url": "https://github.com/alkonosst/SSLClientESP32.git",
+            "version": "v2.0.3"
+        },
+        {
+            "owner": "vshymanskyy",
+            "name": "TinyGSM",
+            "version": "0.12"
+        }
+    ]
 }
