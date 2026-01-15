@@ -135,7 +135,7 @@ bool RelaysTS::isModuleDetected(uint8_t module) {
     if (!m_mcpInit[module]) {
         // Calling too many begin_I2C, crashes the controller after a while. This makes sure it is called only once.
         m_mcpInit[module] = true;
-        return m_mcp[module].begin_I2C(m_mcpAddress[module]);
+        return m_mcp[module].begin_I2C(m_mcpAddress[module], &Wire);
     }
     // Ping module that begin_I2C was already called
     Wire.beginTransmission(m_mcpAddress[module]);

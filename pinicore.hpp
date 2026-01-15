@@ -51,8 +51,8 @@
 #include "drivers/io/relays/rl_ts.hpp"
 #include "drivers/io/relays/rl_x16blue.hpp"
 
-#include "drivers/sensors/lm35.hpp"
-#include "drivers/sensors/dht.hpp"
+#include "drivers/sensor/lm35.hpp"
+#include "drivers/sensor/dht.hpp"
 
 #include "drivers/communication/lora.hpp"
 
