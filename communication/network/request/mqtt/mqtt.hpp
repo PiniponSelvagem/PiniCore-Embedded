@@ -188,6 +188,7 @@ class MQTT {
 
         uint64_t m_timeOfLastTryConnect = 0;
         uint32_t m_reconnectRetryCount  = 0;
+        bool m_wasConnected = false; // This is used to call 'onDisconnect' callback only once per disconnect
 
         const char* m_willTopic;
         const char* m_willPayload;

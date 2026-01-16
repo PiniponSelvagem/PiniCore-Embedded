@@ -52,7 +52,12 @@ void MQTT::maintain() {
     if (isConnected()) {
         m_mqttClient.loop();
         m_reconnectRetryCount = 0;
+        m_wasConnected = true;
         return;
+    }
+    else if (m_wasConnected) {
+        _onDisconnect();
+        m_wasConnected = false;
     }
     
     if ((getMillis()-m_timeOfLastTryConnect >= MQTT_RECONNECT_TIMER_IN_MILLIS)) {
@@ -101,6 +106,7 @@ void MQTT::removeOnTopic(const char* topic) {
         MqttOnTopicCallback_t* onTopic = &m_onTopicCallbacks[i];
         if (strcmp(onTopic->topic, topic) == 0) {
             m_mqttClient.unsubscribe(topic);
+            _onUnsubscribe(topic);
             onTopic->topic = NULL;
             return;
         }
@@ -132,6 +138,7 @@ void MQTT::subscribeAll() {
         MqttOnTopicCallback_t* onTopic = &m_onTopicCallbacks[i];
         if (onTopic->topic != NULL) {
             m_mqttClient.subscribe(onTopic->topic);
+            _onSubscribe(onTopic->topic);
         }
     }
 }
