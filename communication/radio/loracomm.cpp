@@ -81,6 +81,15 @@ bool LoRaComm::send(radioid_t radioId, uint8_t tagId, bool requireAck, const uin
     return _send(radioId, tagId, requireAck, false, payload, size);
 }
 
+uint32_t LoRaComm::getSendQueueSize() {
+    uint32_t fillSize = 0;
+    for (int i=0; i<LORACOMM_SEND_QUEUE_MAX; ++i) {
+        if (m_sendQueue[i].payloadSize != 0)
+            ++fillSize;
+    }
+    return fillSize;
+}
+
 void LoRaComm::getStatistics(LoRaStatistics_t* stats) {
     if (stats == NULL) return;
     stats->bytesSent       = m_lora.statsBytesSent();

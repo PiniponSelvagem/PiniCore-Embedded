@@ -229,6 +229,12 @@ class LoRaComm {
         bool send(radioid_t radioId, uint8_t tagId, bool requireAck, const uint8_t* payload, size_t size);
 
         /**
+         * @brief   Get the number of messages queued in the send queue to be sent.
+         * @return  Count of send queued payloads.
+         */
+        uint32_t getSendQueueCount();
+
+        /**
          * @brief   Get current LoRa hardware and communication statistics.
          * @param   stats Pointer to struct that will place the statistics into.
          */
