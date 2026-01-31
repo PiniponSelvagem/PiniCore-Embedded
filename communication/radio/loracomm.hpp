@@ -232,7 +232,7 @@ class LoRaComm {
          * @brief   Get the number of messages queued in the send queue to be sent.
          * @return  Count of send queued payloads.
          */
-        uint32_t getSendQueueCount();
+        uint32_t getSendQueueSize();
 
         /**
          * @brief   Get current LoRa hardware and communication statistics.
