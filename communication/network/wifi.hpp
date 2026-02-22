@@ -138,6 +138,7 @@ class WiFiComm : public INetwork {
 
         
     private:
+        bool m_isActive = false;        // If true, 'connect' was called and should reconnect if lost connection
         WiFiClient m_client;
 
         char m_ssid[WIFI_SSID_SIZE_MAX];   ///< SSID used in 'connect'.
@@ -147,9 +148,11 @@ class WiFiComm : public INetwork {
         char m_passAP[WIFI_PASS_SIZE_MAX]; ///< PASS used in 'apConnect'.
         bool m_isHiddenAP;                 ///< AP hidden state used in 'apConnect'.
 
-
         bool m_isActiveStation = false; ///< True when WiFi using station mode.
         bool m_isActiveAP = false;      ///< True when WiFi AP is active.
+   
+        uint64_t m_connectionLostAt;    // Millis when last wifi connection.
+        bool m_connectionLost;          // In lost connection state.
 };
 
 #endif /* _PINICORE_WIFI_H_ */

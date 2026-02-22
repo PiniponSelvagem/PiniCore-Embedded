@@ -3,6 +3,8 @@
 
 #define PINICORE_TAG_WIFI   "pcore_wifi"
 
+#define WIFI_AUTORECONNECT_TIMEOUT_MS   (1*60*1000)
+
 void WiFiComm::init() {
     // Currently nothing to do
 }
@@ -21,10 +23,34 @@ void WiFiComm::configAP(const char* ssid, const char* pass, bool hidden) {
 }
 
 void WiFiComm::maintain() {
-    // Currently nothing to do
+    if (isConnected()) {
+        m_connectionLost   = false;
+        m_connectionLostAt = 0;
+        return;
+    }
+
+    if (!m_isActive) {
+        return;
+    }
+
+    uint64_t currMillis = getMillis();
+    if (m_connectionLostAt == 0) {
+        m_connectionLost   = true;
+        m_connectionLostAt = currMillis;
+        return;
+    }
+
+    if (currMillis - m_connectionLostAt >= WIFI_AUTORECONNECT_TIMEOUT_MS) {
+        LOG_W(PINICORE_TAG_WIFI, "Connection lost");
+        connect();
+        m_connectionLost = false;
+        m_connectionLostAt = 0;
+    }
 }
 
 bool WiFiComm::connect() {
+    m_isActive = true;
+
     if (m_isActiveAP)
         WiFi.mode(WIFI_MODE_APSTA);
     else
@@ -44,6 +70,7 @@ bool WiFiComm::connect() {
 void WiFiComm::disconnect() {
     m_isActiveStation = false;
     WiFi.disconnect(false, true);
+    m_isActive = false;
 }
 
 bool WiFiComm::connectAP() {
