@@ -2,9 +2,8 @@
 #include "utils/time.hpp"
 #include <Arduino.h>
 
-#define BATTERY_ADC_MAX     4095.f
-#define BATTERY_ADC_REF     3.3f
 #define BATTERY_ADC_DIVIDER 2.f
+#define ADC_DEFAULT_VREF    1100
 
 #define BATTERY_READ_SAMPLE_COUNT   16      // Number of samples to take to average the voltage read.
 
@@ -38,10 +37,20 @@ static const float m_vbatLUT[101] = {
 };
 
 
-void Battery::init(uint8_t pin, float correction) {
+void Battery::init(uint8_t pin) {
     m_pin = pin;
-    m_correction = correction;
-    analogSetAttenuation(ADC_11db);
+    
+    analogReadResolution(12);
+    analogSetPinAttenuation(pin, ADC_11db);
+
+    esp_adc_cal_characterize(
+        ADC_UNIT_1,
+        ADC_ATTEN_DB_11,
+        ADC_WIDTH_BIT_12,
+        ADC_DEFAULT_VREF,
+        &m_adcChars
+    );
+
     pinMode(m_pin, INPUT);
 }
 
@@ -72,8 +81,8 @@ float Battery::readVoltage() {
         readSum += analogRead(m_pin);
         delay(4);
     }
-    float readAvg = readSum / BATTERY_READ_SAMPLE_COUNT;
-    float voltage = (readAvg / BATTERY_ADC_MAX) * BATTERY_ADC_REF * BATTERY_ADC_DIVIDER;
-    m_lastVoltage = voltage * m_correction;
+    uint32_t adc = readSum / BATTERY_READ_SAMPLE_COUNT;
+    uint32_t mv = esp_adc_cal_raw_to_voltage(adc, &m_adcChars);
+    m_lastVoltage = (mv / 1000.0) * BATTERY_ADC_DIVIDER;
     return m_lastVoltage;
 }

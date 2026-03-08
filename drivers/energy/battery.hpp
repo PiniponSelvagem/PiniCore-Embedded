@@ -18,8 +18,7 @@
 #define _PINICORE_ENERGY_BATTERY_H_
 
 #include <stdint.h>
-
-#define BATTERY_CORRECTION_TTGO_LORA32_DISPLAY  (3.855 / 3.625)     // Correction multiplier taken from 'T3_V1.6.1'
+#include "esp_adc_cal.h"
 
 #define BATTERY_READ_INTERVAL_MS    5000    // Interval in milliseconds that should update the cached battery status.
 
@@ -28,12 +27,8 @@ class Battery {
         /**
          * @brief   Initialize the battery.
          * @param   pin Pin the battery read is connected to.
-         * @param   correction Correction multiplier, get it using a multimeter and then dividing it with the value
-         *          read by the controller when using correction value of '1'.
-         * @note    Getting the correction value:
-         *              (multimeter_read/controller_read) = correction_value
          */
-        void init(uint8_t pin, float correction = 1.f);
+        void init(uint8_t pin);
 
         /**
          * @brief   Get voltage (V) of the battery connected.
@@ -61,8 +56,8 @@ class Battery {
         float readVoltage();
 
 
+        esp_adc_cal_characteristics_t m_adcChars;
         uint8_t m_pin;
-        float m_correction;
 
         float m_lastVoltage;
         uint64_t m_lastReadAt;
