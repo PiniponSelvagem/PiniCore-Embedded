@@ -16,7 +16,7 @@
 #ifndef _PINICORE_MEMORY_H_
 #define _PINICORE_MEMORY_H_
 
-#include <stdlib.h>
+#include "pinitypes.hpp"
 
 /**
  * @brief   Get the ammount of bytes available for a continous allocation.

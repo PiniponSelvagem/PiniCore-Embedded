@@ -1,5 +1,6 @@
 #include "mqtt.hpp"
 #include "utils/log.hpp"
+#include "utils/time.hpp"
 
 #define PINICORE_TAG_MQTT    "pcore_mqtt"
 #define PINICORE_TAG_MQTT_CB "pcore_mqtt_cb"

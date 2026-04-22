@@ -16,7 +16,7 @@
 #ifndef _PINICORE_CALCULATIONS_H_
 #define _PINICORE_CALCULATIONS_H_
 
-#include <stdint.h>
+#include "pinitypes.hpp"
 
 /**
  * @brief   Generate a random value between 0 and UINT32_MAX.

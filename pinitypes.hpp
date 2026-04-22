@@ -1,6 +1,6 @@
 /**
-* @file		time.hpp
-* @brief	Time related helper functions.
+* @file		pinitypes.h
+* @brief	Easy include of most used types of PiniCore library.
 * @author	PiniponSelvagem
 *
 * Copyright(C) PiniponSelvagem
@@ -13,15 +13,10 @@
 
 #pragma once
 
-#ifndef _PINICORE_TIME_H_
-#define _PINICORE_TIME_H_
+#ifndef _PINICORE_TYPES_H_
+#define _PINICORE_TYPES_H_
 
-#include "pinitypes.hpp"
+#include <stdint.h>
+#include <stddef.h>
 
-/**
- * @brief Returns the milliseconds since BOOT.
- * @note Recommended to use this instead of Arduino "millis()" since that overflows after +/-49 days, because it uses 32 bits.
- */
-uint64_t getMillis();
-
-#endif // _PINICORE_TIME_H_
+#endif /* _PINICORE_TYPES_H_ */

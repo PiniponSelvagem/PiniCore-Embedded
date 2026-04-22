@@ -1,6 +1,7 @@
 #include "loracomm.hpp"
 #include "utils/crypto.hpp"
 #include "utils/log.hpp"
+#include "utils/time.hpp"
 #include "utils/calculation.hpp"
 #include <string.h>
 #include <math.h>

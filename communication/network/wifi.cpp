@@ -1,5 +1,6 @@
 #include "wifi.hpp"
 #include "utils/log.hpp"
+#include "utils/time.hpp"
 
 #define PINICORE_TAG_WIFI   "pcore_wifi"
 

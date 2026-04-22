@@ -16,9 +16,6 @@
 #ifndef _PINICORE_LOG_H_
 #define _PINICORE_LOG_H_
 
-#include <stdarg.h>
-#include "time.hpp"
-
 /**
  * Example of PLOG_LEVEL setting:
  * #define PLOG_LEVEL PLOG_LEVEL_DEBUG
@@ -68,16 +65,7 @@
 
 
 // Internal function to log the message
-inline void _plog_impl(const char* level, const char* klass, const char* fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-
-    printf("%llu | %s [%s] ", getMillis(), level, klass);
-    vprintf(fmt, args);
-    printf("\n");
-
-    va_end(args);
-}
+void _plog_impl(const char* level, const char* klass, const char* fmt, ...);
 
 // Helper macro
 #define PLOG_IMPL(logLevelStr, klass, fmt, ...) \
