@@ -1,6 +1,6 @@
 #include "board.hpp"
 #include "utils/log.hpp"
-
+#include "pinitypes.hpp"
 #include <esp_system.h>
 
 #define PINICORE_TAG_BOARD "pcore_board"

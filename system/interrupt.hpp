@@ -16,10 +16,6 @@
 #ifndef _PINICORE_INTERRUPT_H_
 #define _PINICORE_INTERRUPT_H_
 
-#include <Arduino.h>
-
-#include "utils/log.hpp"
-
 /**
  * @brief   Automatically disable interrupts during the lifetime of the usage of this class.
  * @note    Just declare a variable with with this class inside a block of code.
@@ -28,8 +24,8 @@
  */
 class AutoDisableInterrupt {
     public:
-        AutoDisableInterrupt()  { noInterrupts(); }
-        ~AutoDisableInterrupt() {   interrupts(); }
+        AutoDisableInterrupt();
+        ~AutoDisableInterrupt();
 };
 
 #endif // _PINICORE_INTERRUPT_H_
