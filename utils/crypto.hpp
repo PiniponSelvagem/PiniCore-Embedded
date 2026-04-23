@@ -16,7 +16,7 @@
 #ifndef _PINICORE_CRYPTO_H_
 #define _PINICORE_CRYPTO_H_
 
-#include "pinitypes.hpp"
+#include <stdint.h>
 
 /**
  * @brief   Calculate the checksum of a payload.

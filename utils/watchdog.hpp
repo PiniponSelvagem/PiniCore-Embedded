@@ -16,7 +16,7 @@
 #ifndef _PINICORE_WATCHDOG_H_
 #define _PINICORE_WATCHDOG_H_
 
-#include "pinitypes.hpp"
+#include <stdint.h>
 
 /**
  * @brief Configure the internal Task watchdog.

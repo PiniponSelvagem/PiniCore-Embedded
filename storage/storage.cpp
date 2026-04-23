@@ -1,5 +1,7 @@
 #include "storage.hpp"
 #include "utils/log.hpp"
+#include <stdint.h>
+#include <LittleFS.h>
 
 #define PINICORE_TAG_STORAGE "pcore_storage"
 

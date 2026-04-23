@@ -16,7 +16,7 @@
 #ifndef _PINICORE_PRINT_H_
 #define _PINICORE_PRINT_H_
 
-#include "pinitypes.hpp"
+#include <stdint.h>
 
 /**
  * @brief Convert value to binary in string format.

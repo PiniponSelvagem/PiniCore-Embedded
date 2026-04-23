@@ -16,7 +16,7 @@
 #ifndef _PINICORE_TIME_H_
 #define _PINICORE_TIME_H_
 
-#include "pinitypes.hpp"
+#include <stdint.h>
 
 /**
  * @brief Returns the milliseconds since BOOT.

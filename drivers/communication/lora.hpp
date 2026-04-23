@@ -43,7 +43,7 @@
 /**
  * @brief   LoRa bandwidth definition in Hz.
  */
-enum class ELoRaBandwidth : long {
+enum ELoRaBandwidth : long {
     LR_BW_7_8_KHZ   = 7800,
     LR_BW_10_4_KHZ  = 10400,
     LR_BW_15_6_KHZ  = 15600,
