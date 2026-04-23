@@ -16,10 +16,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_ROTARYENCODER_H_
-#define _PINICORE_IO_ROTARYENCODER_H_
+#ifndef PINICORE_IO_ROTARYENCODER_H
+#define PINICORE_IO_ROTARYENCODER_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 #define ROTENC_MAX 4000         // prevent internal position overflow
 #define ROTENC_FAST_SPEED 5     // the inc/dec to add when during fast mode
@@ -110,4 +112,6 @@ class RotaryEncoder {
         int32_t     m_delta;             // rotation delta since last getDelta call
 };
 
-#endif /* _PINICORE_IO_ROTARYENCODER_H_ */
+} // pinicore
+
+#endif /* PINICORE_IO_ROTARYENCODER_H */

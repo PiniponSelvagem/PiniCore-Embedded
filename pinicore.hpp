@@ -30,8 +30,8 @@
   *     https://github.com/alkonosst/SSLClientESP32.git#v2.0.3
   *     arduino-libraries/ArduinoHttpClient@^0.6.1
   */
-#ifndef _PINICORE_H_
-#define _PINICORE_H_
+#ifndef PINICORE_H
+#define PINICORE_H
 
 #include "utils/log.hpp"
 #include "utils/time.hpp"
@@ -71,4 +71,4 @@
 
 #include "communication/radio/loracomm.hpp"
 
-#endif /* _PINICORE_H_ */
+#endif /* PINICORE_H */

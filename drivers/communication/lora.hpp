@@ -13,11 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_LORA_H_
-#define _PINICORE_LORA_H_
+#ifndef PINICORE_COMM_LORA_H
+#define PINICORE_COMM_LORA_H
 
 #include <stdint.h>
 #include <functional>
+
+namespace pinicore {
 
 /**
  * Note: This table was taken from ChatGPT, take it with a grain of salt and just as a general idea.
@@ -233,4 +235,6 @@ class LoRaTxRx {
         uint32_t m_statsPacketsReceived = 0;
 };
 
-#endif // _PINICORE_STORAGE_H_
+} // piincore
+
+#endif // PINICORE_COMM_LORA_H

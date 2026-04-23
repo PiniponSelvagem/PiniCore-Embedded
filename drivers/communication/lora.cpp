@@ -4,6 +4,8 @@
 #include <LoRa.h>
 #include <SPI.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_LORA   "pcore_lora"
 
 bool LoRaTxRx::init(
@@ -123,3 +125,5 @@ void LoRaTxRx::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
     if (m_onReceiveCallback != NULL)
         m_onReceiveCallback(payload, size, rssi, snr);
 }
+
+} // pinicore

@@ -13,9 +13,9 @@
 
 #pragma once
 
-#ifndef _PINICORE_CONST_H_
-#define _PINICORE_CONST_H_
+#ifndef PINICORE_CONST_H
+#define PINICORE_CONST_H
 
 #define SerialAT Serial1    // Serial for AT commands, example GSM module
 
-#endif /* _PINICORE_CONST_H_ */
+#endif /* PINICORE_CONST_H */

@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_CALCULATIONS_H_
-#define _PINICORE_CALCULATIONS_H_
+#ifndef PINICORE_UTILS_CALCULATION_H
+#define PINICORE_UTILS_CALCULATION_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief   Generate a random value between 0 and UINT32_MAX.
@@ -24,4 +26,6 @@
  */
 uint32_t randomGenerator();
 
-#endif // _PINICORE_CALCULATIONS_H_
+} // pinicore
+
+#endif // PINICORE_UTILS_CALCULATION_H

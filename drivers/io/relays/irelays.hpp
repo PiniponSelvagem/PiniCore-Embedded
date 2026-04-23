@@ -13,12 +13,14 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_IRELAYS_H_
-#define _PINICORE_IO_IRELAYS_H_
+#ifndef PINICORE_IO_IRELAYS_H
+#define PINICORE_IO_IRELAYS_H
 
 #include <stdint.h>
 #include <functional>
 #include <Adafruit_MCP23X17.h>
+
+namespace pinicore {
 
 #define RELAYS_MAX 256  // Maximum number of total relays supported by the library.
 #define RELAYS_STORAGE_BIT_SIZE (sizeof(uint32_t)*8)    // Size in bits of the type uses to store relays state.
@@ -170,4 +172,6 @@ class IRelays {
         RelaysOnModuleCallback m_onModuleCallback;
 };
 
-#endif // _PINICORE_IO_IRELAYS_H_
+} // pinicore
+
+#endif // PINICORE_IO_IRELAYS_H

@@ -32,10 +32,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_SENSOR_DHT_H_
-#define _PINICORE_SENSOR_DHT_H_
+#ifndef PINICORE_SENSOR_DHT_H
+#define PINICORE_SENSOR_DHT_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 enum EDHT : uint8_t {
     DHT_11 = 11,
@@ -110,4 +112,6 @@ class DHT {
         float m_humidity;
 };
 
-#endif /* _PINICORE_SENSOR_DHT_H_ */
+} // pinicore
+
+#endif /* PINICORE_SENSOR_DHT_H */

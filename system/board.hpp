@@ -13,8 +13,10 @@
 
 #pragma once
 
-#ifndef _PINICORE_BOARD_H_
-#define _PINICORE_BOARD_H_
+#ifndef PINICORE_SYSTEM_BOARD_H
+#define PINICORE_SYSTEM_BOARD_H
+
+namespace pinicore {
 
 /**
  * @brief Get device unique identifier, that is equal to the WiFi module MAC ADDRESS.
@@ -34,4 +36,6 @@ bool wasLastResetManual();
  */
 bool wasLastResetFatal();
 
-#endif // _PINICORE_BOARD_H_
+} // pinicore
+
+#endif // PINICORE_SYSTEM_BOARD_H

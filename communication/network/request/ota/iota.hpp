@@ -13,12 +13,14 @@
 
 #pragma once
 
-#ifndef _PINICORE_IOTA_H_
-#define _PINICORE_IOTA_H_
+#ifndef PINICORE_COMM_IOTA_H
+#define PINICORE_COMM_IOTA_H
 
 #include <stdint.h>
 #include <functional>
 #include <Client.h>
+
+namespace pinicore {
 
 enum EOTAUpdateStatus : uint8_t {
     OTA_FAILED,
@@ -135,4 +137,6 @@ class IOTA {
         OTA_ONPROGRESS_SIGNATURE m_onProgress;  // The callback called during download progress. Use \ref 'onProgress' since that will check if this function pointer is valid.
 };
 
-#endif // _PINICORE_IOTA_H_
+} // pinicore
+
+#endif // PINICORE_COMM_IOTA_H

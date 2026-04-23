@@ -13,15 +13,16 @@
 
 #pragma once
 
-#ifndef _PINICORE_STORAGE_H_
-#define _PINICORE_STORAGE_H_
+#ifndef PINICORE_STORAGE_STORAGE_H
+#define PINICORE_STORAGE_STORAGE_H
 
 #include <LittleFS.h>
+
+namespace pinicore {
 
 #define STORAGE_DIR_SYSTEM               "/system"                     // Folder related to PiniCore system files.
 #define STORAGE_FILE_IDENTIFICATION      STORAGE_DIR_SYSTEM "/id.sys"  // Path to file that is used to identiofy the storage system.
 #define STORAGE_IDENTIFICATION_MAX_BYTES 32
-
 
 class Storage {
     public:
@@ -145,4 +146,6 @@ class Storage {
         void dumpTree(const char* path, uint8_t levels, String indent = "");
 };
 
-#endif // _PINICORE_STORAGE_H_
+} // pinicore
+
+#endif // PINICORE_STORAGE_STORAGE_H

@@ -1,6 +1,8 @@
 #include "crypto.h"
 #include <CRC32.h>
 
+namespace pinicore {
+
 uint32_t calculateChecksum(const uint8_t* data, size_t size, const uint8_t phrase) {
     CRC32 crc;
     if (phrase != 0)
@@ -8,3 +10,5 @@ uint32_t calculateChecksum(const uint8_t* data, size_t size, const uint8_t phras
     crc.add(data, size);
     return crc.calc();
 }
+
+} // pinicore

@@ -3,6 +3,8 @@
 #include <stdarg.h>
 #include "time.hpp"
 
+namespace pinicore {
+
 // Internal function to log the message
 void _plog_impl(const char* level, const char* klass, const char* fmt, ...) {
     va_list args;
@@ -14,3 +16,5 @@ void _plog_impl(const char* level, const char* klass, const char* fmt, ...) {
 
     va_end(args);
 }
+
+} // pinicore

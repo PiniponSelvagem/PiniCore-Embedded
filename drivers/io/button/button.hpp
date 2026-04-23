@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_BUTTON_H_
-#define _PINICORE_IO_BUTTON_H_
+#ifndef PINICORE_IO_BUTTON_H
+#define PINICORE_IO_BUTTON_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief	Maximum number of buttons supported.
@@ -116,4 +118,6 @@ class Button {
         uint32_t m_btnsLastState = 0;
 };
 
-#endif /* _PINICORE_IO_BUTTON_H_ */
+} // pinicore
+
+#endif /* PINICORE_IO_BUTTON_H */

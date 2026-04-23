@@ -13,11 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_INETWORK_H_
-#define _PINICORE_INETWORK_H_
+#ifndef PINICORE_COMM_INETWORK_H
+#define PINICORE_COMM_INETWORK_H
 
 #include <stdint.h>
 #include <Client.h>
+
+namespace pinicore {
 
 enum ENetworkType : uint8_t {
     NET_WIFI,
@@ -86,4 +88,6 @@ class INetwork {
         virtual bool isConnected() const = 0;
 };
 
-#endif /* _PINICORE_INETWORK_H_ */
+} // pinicore
+
+#endif /* PINICORE_COMM_INETWORK_H */

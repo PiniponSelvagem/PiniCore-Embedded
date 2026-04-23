@@ -2,6 +2,8 @@
 #include "utils/log.hpp"
 #include "utils/time.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_WIFI   "pcore_wifi"
 
 #define WIFI_AUTORECONNECT_TIMEOUT_MS   (1*60*1000)
@@ -102,3 +104,5 @@ void WiFiComm::disable() {
     m_isActiveAP = false;
     WiFi.disconnect(true);
 }
+
+} // pinicore

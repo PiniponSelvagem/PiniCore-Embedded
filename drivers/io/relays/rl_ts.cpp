@@ -2,6 +2,8 @@
 #include "utils/log.hpp"
 #include "utils/time.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_RELAYS_TS "pcore_relaysts"
 
 /**
@@ -142,3 +144,5 @@ bool RelaysTS::isModuleDetected(uint8_t module) {
     Wire.beginTransmission(m_mcpAddress[module]);
     return (Wire.endTransmission() == 0);
 }
+
+} // pinicore

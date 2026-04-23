@@ -1,6 +1,8 @@
 #include "rl_x16blue.hpp"
 #include "utils/log.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_RELAYS_X16BLUE "pcore_relaysx16blue"
 
 
@@ -53,3 +55,5 @@ bool RelaysX16Blue::setHardware(uint8_t module, uint8_t relay, bool state) {
     digitalWrite(m_pinLatch, HIGH);
     return true;
 }
+
+} // pinicore

@@ -1,6 +1,8 @@
 #include "rotaryencoder.hpp"
 #include <Arduino.h>
 
+namespace pinicore {
+
 // The array holds the values -1 for the entries where a position was decremented,
 // a 1 for the entries where the position was incremented
 // and 0 in all the other (no change or not valid) cases.
@@ -138,3 +140,5 @@ void RotaryEncoder::setPosition(int16_t newPosition) {
     m_position    = ((newPosition >> m_encoderType.resolutionShift) | (m_position & 0x03));
     m_positionExt = newPosition;
 }
+
+} // pinicore

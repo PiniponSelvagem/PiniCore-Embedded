@@ -13,11 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_OTATS_H_
-#define _PINICORE_OTATS_H_
+#ifndef PINICORE_COMM_OTATS_H
+#define PINICORE_COMM_OTATS_H
 
 #include "iota.hpp"
 #include <stdint.h>
+
+namespace pinicore {
 
 #define OTA_TS_AVAILABLEUPDATE_URI_MAX_SIZE 128
 
@@ -71,4 +73,6 @@ class OTATS : public IOTA {
         char m_uriAvailableUpdate[OTA_TS_AVAILABLEUPDATE_URI_MAX_SIZE];
 };
 
-#endif // _PINICORE_OTATS_H_
+} // pinicore
+
+#endif // PINICORE_COMM_OTATS_H

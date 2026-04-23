@@ -3,6 +3,8 @@
 
 #include <esp_task_wdt.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_WDG "pcore_watchdog"
 
 void watchdogSetup(uint32_t timeout) {
@@ -23,3 +25,5 @@ void watchdogDisable() {
 void watchdogIamAlive() {
     esp_task_wdt_reset();
 }
+
+} // pinicore

@@ -13,13 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_MOBILE_H_
-#define _PINICORE_MOBILE_H_
+#ifndef PINICORE_COMM_MOBILE_H
+#define PINICORE_COMM_MOBILE_H
 
 #include "inetwork.hpp"
 #include "piniconst.hpp"
 
-#ifndef _PINICORE_CONFIG_H_
+#ifndef PINICORE_CONFIG_H
     #include "piniconfig.hpp"
 #endif
 
@@ -29,6 +29,8 @@
 //#define TINY_GSM_DEBUG Serial
 
 #include <TinyGsmClient.h>
+
+namespace pinicore {
 
 #define PINICORE_MOBILE_APN_SIZE_MAX            64
 #define PINICORE_MOBILE_SIMCARD_PIN_SIZE_MAX    8
@@ -147,4 +149,6 @@ class MobileComm : public INetwork {
         TinyGsmClient m_gsmClient = TinyGsmClient(m_modem, 0);
 };
 
-#endif /* _PINICORE_MOBILE_H_ */
+} // pinicore
+
+#endif /* PINICORE_COMM_MOBILE_H */

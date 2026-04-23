@@ -13,11 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_RELAYS_VIRTUAL_H_
-#define _PINICORE_IO_RELAYS_VIRTUAL_H_
+#ifndef PINICORE_IO_RELAYS_VIRTUAL_H
+#define PINICORE_IO_RELAYS_VIRTUAL_H
 
 #include <stdint.h>
 #include "irelays.hpp"
+
+namespace pinicore {
 
 class RelaysVirtual : public IRelays {
     public:
@@ -64,4 +66,6 @@ class RelaysVirtual : public IRelays {
         bool setHardware(uint8_t module, uint8_t relay, bool state) override;
 };
 
-#endif // _PINICORE_IO_RELAYS_VIRTUAL_H_
+} // pinicore
+
+#endif // PINICORE_IO_RELAYS_VIRTUAL_H

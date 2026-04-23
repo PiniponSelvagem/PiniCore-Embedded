@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_CRYPTO_H_
-#define _PINICORE_CRYPTO_H_
+#ifndef PINICORE_UTILS_CRYPTO_H
+#define PINICORE_UTILS_CRYPTO_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief   Calculate the checksum of a payload.
@@ -26,4 +28,6 @@
  */
 uint32_t calculateChecksum(const uint8_t* data, size_t size, const uint8_t phrase = 0);
 
-#endif // _PINICORE_CRYPTO_H_
+} // pinicore
+
+#endif // PINICORE_UTILS_CRYPTO_H

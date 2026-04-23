@@ -14,11 +14,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_RELAYS_X16BLUE_H_
-#define _PINICORE_IO_RELAYS_X16BLUE_H_
+#ifndef PINICORE_IO_RELAYS_X16BLUE_H
+#define PINICORE_IO_RELAYS_X16BLUE_H
 
 #include <stdint.h>
 #include "irelays.hpp"
+
+namespace pinicore {
 
 class RelaysX16Blue : public IRelays {
     public:
@@ -69,4 +71,6 @@ class RelaysX16Blue : public IRelays {
         bool m_isActiveLow;
 };
 
-#endif // _PINICORE_IO_RELAYS_X16BLUE_H_
+} // pinicore
+
+#endif // PINICORE_IO_RELAYS_X16BLUE_H

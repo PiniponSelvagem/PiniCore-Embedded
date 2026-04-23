@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <esp_system.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_BOARD "pcore_board"
 
 static bool __hasUniqueId = false;
@@ -39,3 +41,5 @@ bool wasLastResetManual() {
 bool wasLastResetFatal() {
     return esp_reset_reason() == ESP_RST_PANIC;
 }
+
+} // pinicore

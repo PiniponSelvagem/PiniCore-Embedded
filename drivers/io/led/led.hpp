@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_LED_H_
-#define _PINICORE_IO_LED_H_
+#ifndef PINICORE_IO_LED_H
+#define PINICORE_IO_LED_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief	Maximum number of leds supported.
@@ -78,4 +80,6 @@ class Led {
         uint32_t m_ledsCurrentState = 0;
 };
 
-#endif /* _PINICORE_IO_LED_H_ */
+} // pinicore
+
+#endif /* PINICORE_IO_LED_H */

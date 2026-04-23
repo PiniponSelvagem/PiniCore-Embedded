@@ -13,11 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_MEMORY_H_
-#define _PINICORE_MEMORY_H_
+#ifndef PINICORE_UTILS_MEMORY_H
+#define PINICORE_UTILS_MEMORY_H
 
 #include <stdint.h>
 #include <stddef.h>
+
+namespace pinicore {
 
 /**
  * @brief   Get the ammount of bytes available for a continous allocation.
@@ -43,4 +45,6 @@ size_t mavailableLargest();
  */
 size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap);
 
-#endif // _PINICORE_MEMORY_H_
+} // pinicore
+
+#endif // PINICORE_UTILS_MEMORY_H

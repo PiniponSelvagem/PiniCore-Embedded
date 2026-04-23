@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_WATCHDOG_H_
-#define _PINICORE_WATCHDOG_H_
+#ifndef PINICORE_UTILS_WATCHDOG_H
+#define PINICORE_UTILS_WATCHDOG_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief Configure the internal Task watchdog.
@@ -39,4 +41,6 @@ void watchdogDisable();
  */
 void watchdogIamAlive();
 
-#endif // _PINICORE_WATCHDOG_H_
+} // pinicore
+
+#endif // PINICORE_UTILS_WATCHDOG_H

@@ -13,12 +13,14 @@
 
 #pragma once
 
-#ifndef _PINICORE_IO_RELAYS_TS_H_
-#define _PINICORE_IO_RELAYS_TS_H_
+#ifndef PINICORE_IO_RELAYS_TS_H
+#define PINICORE_IO_RELAYS_TS_H
 
 #include <stdint.h>
 #include "irelays.hpp"
 #include <Adafruit_MCP23X17.h>
+
+namespace pinicore {
 
 #define RELAYS_TS_PER_MODULE   16
 #define RELAYS_TS_MODULES      8
@@ -120,4 +122,6 @@ class RelaysTS : public IRelays {
         time_t m_lastTimeCheckedModules = 0;
 };
 
-#endif // _PINICORE_IO_RELAYS_16MCP_H_
+} // pinicore
+
+#endif // PINICORE_IO_RELAYS_16MCP_H

@@ -7,6 +7,8 @@
 
 #include "utils/memory.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_OTA_TS "pcore_ota_ts"
 
 #ifndef OTA_TS_HOST
@@ -143,3 +145,5 @@ EOTAUpdateStatus OTATS::update() {
     EOTAUpdateStatus statusINSTALL = install(updateMD5, updateSHA256, calculatedSHA256);
     return statusINSTALL;
 }
+
+} // pinicore

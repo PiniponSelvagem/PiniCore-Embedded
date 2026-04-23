@@ -13,8 +13,10 @@
 
 #pragma once
 
-#ifndef _PINICORE_LOG_H_
-#define _PINICORE_LOG_H_
+#ifndef PINICORE_UTILS_LOG_H
+#define PINICORE_UTILS_LOG_H
+
+namespace pinicore {
 
 /**
  * Example of PLOG_LEVEL setting:
@@ -109,6 +111,6 @@ void _plog_impl(const char* level, const char* klass, const char* fmt, ...);
   #define LOG_T(klass, fmt, ...)
 #endif
 
+} // pinicore
 
-
-#endif // _PINICORE_LOG_H_
+#endif // PINICORE_UTILS_LOG_H

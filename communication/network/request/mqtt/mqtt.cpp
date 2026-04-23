@@ -2,6 +2,8 @@
 #include "utils/log.hpp"
 #include "utils/time.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_MQTT    "pcore_mqtt"
 #define PINICORE_TAG_MQTT_CB "pcore_mqtt_cb"
 
@@ -160,3 +162,5 @@ void MQTT::_onUnsubscribe(const char* topic) {
     if (m_onUnsubscribeCallback != NULL)
         m_onUnsubscribeCallback(topic);
 }
+
+} // pinicore

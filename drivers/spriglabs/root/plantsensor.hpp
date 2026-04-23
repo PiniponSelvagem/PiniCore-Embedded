@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_SPRIGLABS_ROOT_H_
-#define _PINICORE_SPRIGLABS_ROOT_H_
+#ifndef PINICORE_SPRIGLABS_ROOT_PLANTSENSOR_H
+#define PINICORE_SPRIGLABS_ROOT_PLANTSENSOR_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 class SprigRoot {
     public:
@@ -61,4 +63,6 @@ class SprigRoot {
         float readVoltage();
 };
 
-#endif /* _PINICORE_SPRIGLABS_ROOT_H_ */
+} // pinicore
+
+#endif /* PINICORE_SPRIGLABS_ROOT_PLANTSENSOR_H */

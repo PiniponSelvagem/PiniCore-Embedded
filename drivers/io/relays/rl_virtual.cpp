@@ -1,6 +1,8 @@
 #include "rl_virtual.hpp"
 #include "utils/log.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_RELAYS_VIRTUAL "pcore_relaysvirtual"
 
 
@@ -40,3 +42,5 @@ bool RelaysVirtual::setHardware(uint8_t module, uint8_t relay, bool state) {
     }
     return false;
 }
+
+} // pinicore

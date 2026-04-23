@@ -13,11 +13,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_WIFI_H_
-#define _PINICORE_WIFI_H_
+#ifndef PINICORE_COMM_WIFI_H
+#define PINICORE_COMM_WIFI_H
 
 #include "inetwork.hpp"
 #include <WiFi.h>
+
+namespace pinicore {
 
 #define WIFI_SSID_SIZE_MAX 32
 #define WIFI_PASS_SIZE_MAX 64
@@ -155,4 +157,6 @@ class WiFiComm : public INetwork {
         bool m_connectionLost;          // In lost connection state.
 };
 
-#endif /* _PINICORE_WIFI_H_ */
+} // pinicore
+
+#endif /* PINICORE_COMM_WIFI_H */

@@ -14,11 +14,13 @@
 
 #pragma once
 
-#ifndef _PINICORE_ENERGY_BATTERY_H_
-#define _PINICORE_ENERGY_BATTERY_H_
+#ifndef PINICORE_ENERGY_BATTERY_H
+#define PINICORE_ENERGY_BATTERY_H
 
 #include <stdint.h>
 #include "esp_adc_cal.h"
+
+namespace pinicore {
 
 #define BATTERY_READ_INTERVAL_MS    5000    // Interval in milliseconds that should update the cached battery status.
 
@@ -63,4 +65,6 @@ class Battery {
         uint64_t m_lastReadAt;
 };
 
-#endif /* _PINICORE_ENERGY_BATTERY_H_ */
+} // pinicore
+
+#endif /* PINICORE_ENERGY_BATTERY_H */

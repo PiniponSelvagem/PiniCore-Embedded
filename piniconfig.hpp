@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef _PINICORE_CONFIG_H_
-#define _PINICORE_CONFIG_H_
+#ifndef PINICORE_CONFIG_H
+#define PINICORE_CONFIG_H
 
 /**
  * @brief Redefine this config header file and include it because PiniCore library include,
@@ -23,4 +23,4 @@
 
 #define TINY_GSM_MODEM_SIM800   ///< Default GSM modem
 
-#endif /* _PINICORE_CONFIG_H_ */
+#endif /* PINICORE_CONFIG_H */

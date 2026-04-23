@@ -8,3 +8,6 @@
  * TODO:
  * - Find or create a library that does not use String to avoid memory fragmentation.
  */
+
+namespace pinicore {
+} // pinicore

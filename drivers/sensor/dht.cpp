@@ -4,6 +4,8 @@
 #include "utils/log.hpp"
 #include "system/interrupt.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_DHT "pcore_dht"
 
 #define MIN_READ_INTERVAL_MS    2000
@@ -203,3 +205,5 @@ float DHT::decodeHumidity(uint8_t data0, uint8_t data1) {
     }
     return result;
 }
+
+} // pinicore

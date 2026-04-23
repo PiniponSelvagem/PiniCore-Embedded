@@ -1,6 +1,8 @@
 #include "button.hpp"
 #include <Arduino.h>
 
+namespace pinicore {
+
 /**
  * @brief	Button mask used to get 1 bit of each button. Depending if shift is used or not, it can be used to get only the pressed states or the transition states for all buttons.
  * 			Binary representation visualization:
@@ -70,3 +72,5 @@ bool Button::isPressedRepeating(uint8_t id)	{ return BTN_IS_PRESSED && !BTN_IS_C
 bool Button::isSinglePressed(uint8_t id)	{ return BTN_IS_PRESSED && BTN_IS_CHANGED;	 }
 bool Button::isSingleReleased(uint8_t id)	{ return !BTN_IS_PRESSED && BTN_IS_CHANGED;	 }
 bool Button::isAnyKeyPressed()				{ return (m_btnsLastState & BTNS_MASK_ACTIVE); }
+
+} // pincore

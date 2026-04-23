@@ -2,6 +2,8 @@
 #include "utils/log.hpp"
 #include "utils/print.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_IRELAYS "pcore_irelays"
 
 #define RELAYS_ON_COLOR  "\e[1;42m"
@@ -127,3 +129,5 @@ void IRelays::debugRelaysState() {
         LOG_D(PINICORE_TAG_IRELAYS, "[%d] -> 0b%s", i, buffer);
     }
 }
+
+} // pinicore

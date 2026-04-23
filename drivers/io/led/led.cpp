@@ -1,6 +1,8 @@
 #include "led.hpp"
 #include <Arduino.h>
 
+namespace pinicore {
+
 /**
  * @brief	Led state mask.
  */
@@ -43,3 +45,4 @@ void Led::toggle(uint8_t id) {
     LED_SET_STATE(id, state);
 }
 
+} // pinicore

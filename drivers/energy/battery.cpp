@@ -2,6 +2,8 @@
 #include "utils/time.hpp"
 #include <Arduino.h>
 
+namespace pinicore {
+
 #define BATTERY_ADC_DIVIDER 2.f
 #define ADC_DEFAULT_VREF    1100
 
@@ -86,3 +88,5 @@ float Battery::readVoltage() {
     m_lastVoltage = (mv / 1000.0) * BATTERY_ADC_DIVIDER;
     return m_lastVoltage;
 }
+
+} // pinicore

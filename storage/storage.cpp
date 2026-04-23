@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <LittleFS.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_STORAGE "pcore_storage"
 
 #if PLOG_LEVEL >= PLOG_LEVEL_DEBUG
@@ -169,3 +171,5 @@ void Storage::dumpTree(const char* path, uint8_t levels, String indent) {
     }
     root.close();
 }
+
+} // pinicore

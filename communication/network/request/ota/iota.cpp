@@ -6,6 +6,8 @@
 #include <Update.h>
 #include <mbedtls/md.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_OTA    "pcore_iota"
 
 /**
@@ -145,3 +147,5 @@ void IOTA::abortAndFree() {
     Update.abort();
     Update.end();
 }
+
+} // pinicore

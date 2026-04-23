@@ -1,6 +1,8 @@
 #include "mobile.hpp"
 #include "utils/log.hpp"
 
+namespace pinicore {
+
 #define PINICORE_TAG_MOBILE   "pcore_mobile"
 
 #define GPRS_USER "" // empty -> auto
@@ -83,3 +85,5 @@ void MobileComm::disable() {
     digitalWrite(p_pinPowerKey, HIGH);
     digitalWrite(p_pinPowerOn,  LOW);
 }
+
+} // pinicore

@@ -5,6 +5,8 @@
     #include <stdlib.h>
 #endif
 
+namespace pinicore {
+
 uint32_t randomGenerator() {
 #ifdef ESP_PLATFORM
     return esp_random();
@@ -12,3 +14,5 @@ uint32_t randomGenerator() {
     return rand();
 #endif
 }
+
+} // pinicore

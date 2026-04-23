@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_PRINT_H_
-#define _PINICORE_PRINT_H_
+#ifndef PINICORE_UTILS_PRINT_H
+#define PINICORE_UTILS_PRINT_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief Convert value to binary in string format.
@@ -26,4 +28,6 @@
  */
 void convertToBinaryString(char *buffer, uint32_t num, int bits);
 
-#endif // _PINICORE_PRINT_H_
+} // pinicore
+
+#endif // PINICORE_UTILS_PRINT_H

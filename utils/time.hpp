@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_TIME_H_
-#define _PINICORE_TIME_H_
+#ifndef PINICORE_UTILS_TIME_H
+#define PINICORE_UTILS_TIME_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 /**
  * @brief Returns the milliseconds since BOOT.
@@ -24,4 +26,6 @@
  */
 uint64_t getMillis();
 
-#endif // _PINICORE_TIME_H_
+} // pinicore
+
+#endif // PINICORE_UTILS_TIME_H

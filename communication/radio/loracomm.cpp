@@ -6,6 +6,8 @@
 #include <string.h>
 #include <math.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_LORACOMM    "pcore_loracomm"
 #define PINICORE_TAG_LORACOMM_CB "pcore_loracomm_cb"
 
@@ -369,3 +371,5 @@ uint8_t LoRaComm::flagsEncode(LoRaFlags_t* flags) {
         ((flags->requireAck ? 1:0) << LORACOMM_FLAG_IDX_REQUIRE_ACK) |
         ((flags->isAck      ? 1:0) << LORACOMM_FLAG_IDX_IS_ACK);
 }
+
+} // pinicore

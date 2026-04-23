@@ -3,6 +3,8 @@
 
 #include <esp_heap_caps.h>
 
+namespace pinicore {
+
 #define PINICORE_TAG_MEM "pcore_memory"
 
 size_t mavailableLargest() {
@@ -30,3 +32,5 @@ size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap) {
     LOG_E(PINICORE_TAG_MEM, "Unable to allocate memory for %u bytes", targetBytes);
     return 0;
 }
+
+} // pinicore

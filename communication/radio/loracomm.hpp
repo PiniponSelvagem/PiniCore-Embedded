@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_LORACOMM_H_
-#define _PINICORE_LORACOMM_H_
+#ifndef PINICORE_COMM_LORACOMM_H
+#define PINICORE_COMM_LORACOMM_H
 
 #include "drivers/communication/lora.hpp"
+
+namespace pinicore {
 
 #define LORACOMM_INVALID_TAGID      UINT8_MAX   // Reserved tagId that is used to identify that a 'onReceive' callback is not set for that index.
 
@@ -376,4 +378,6 @@ class LoRaComm {
         LoRaOnReceiveCallback_t m_onReceiveCallbacks[LORACOMM_ONRECEIVE_SIZE_MAX] = {};
 };
 
-#endif // _PINICORE_LORACOMM_H_
+} // pinicore
+
+#endif // PINICORE_COMM_LORACOMM_H

@@ -13,13 +13,15 @@
 
 #pragma once
 
-#ifndef _PINICORE_MQTT_H_
-#define _PINICORE_MQTT_H_
+#ifndef PINICORE_COMM_MQTT_H
+#define PINICORE_COMM_MQTT_H
 
 #include <stdint.h>
 #include <functional>
 #include <Client.h>
 #include <PubSubClient.h>
+
+namespace pinicore {
 
 #define MQTT_BUFFER_SIZE 1024
 #define MQTT_SUBSCRIBE_SIZE_MAX 64 // Maximum number of topics that can be subscribed. I want to avoid using 'malloc'.
@@ -203,4 +205,6 @@ class MQTT {
         MqttOnTopicCallback_t     m_onTopicCallbacks[MQTT_SUBSCRIBE_SIZE_MAX] = {};
 };
 
-#endif // _PINICORE_MQTT_H_
+} // pinicore
+
+#endif // PINICORE_COMM_MQTT_H

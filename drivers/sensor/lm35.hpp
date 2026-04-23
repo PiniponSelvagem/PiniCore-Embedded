@@ -13,10 +13,12 @@
 
 #pragma once
 
-#ifndef _PINICORE_SENSOR_LM35_H_
-#define _PINICORE_SENSOR_LM35_H_
+#ifndef PINICORE_SENSOR_LM35_H
+#define PINICORE_SENSOR_LM35_H
 
 #include <stdint.h>
+
+namespace pinicore {
 
 class LM35 {
     public:
@@ -39,4 +41,6 @@ class LM35 {
         float m_offset;
 };
 
-#endif /* _PINICORE_SENSOR_LM35_H_ */
+} // pinicore
+
+#endif /* PINICORE_SENSOR_LM35_H */

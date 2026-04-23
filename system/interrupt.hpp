@@ -13,8 +13,10 @@
 
 #pragma once
 
-#ifndef _PINICORE_INTERRUPT_H_
-#define _PINICORE_INTERRUPT_H_
+#ifndef PINICORE_SYSTEM_INTERRUPT_H
+#define PINICORE_SYSTEM_INTERRUPT_H
+
+namespace pinicore {
 
 /**
  * @brief   Automatically disable interrupts during the lifetime of the usage of this class.
@@ -28,4 +30,6 @@ class AutoDisableInterrupt {
         ~AutoDisableInterrupt();
 };
 
-#endif // _PINICORE_INTERRUPT_H_
+} // pinicore
+
+#endif // PINICORE_SYSTEM_INTERRUPT_H
