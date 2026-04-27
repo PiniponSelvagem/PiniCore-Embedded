@@ -51,12 +51,14 @@
 #include "drivers/io/relays/rl_ts.hpp"
 #include "drivers/io/relays/rl_x16blue.hpp"
 
-#include "drivers/sensor/lm35.hpp"
-#include "drivers/sensor/dht.hpp"
+#include "drivers/sensor/environment/lm35.hpp"
+#include "drivers/sensor/environment/dht.hpp"
+#include "drivers/sensor/soil/basicsoilspriglabs.hpp"
 
 #include "drivers/communication/lora.hpp"
 
-#include "drivers/energy/battery.hpp"
+#include "drivers/energy/basicbattery.hpp"
+#include "drivers/energy/max1704x.hpp"
 
 #include "storage/storage.hpp"
 

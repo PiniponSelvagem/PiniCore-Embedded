@@ -50,6 +50,21 @@
             "owner": "vshymanskyy",
             "name": "TinyGSM",
             "version": "0.12"
+        },
+        {
+            "owner": "adafruit",
+            "name": "Adafruit VEML7700 Library",
+            "version": "2.1.6"
+        },
+        {
+            "owner": "sparkfun",
+            "name": "SparkFun MAX1704x Fuel Gauge Arduino Library",
+            "version": "1.0.4"
+        },
+        {
+            "owner": "closedcube",
+            "name": "ClosedCube HDC1080",
+            "version": "1.3.2"
         }
     ]
 }

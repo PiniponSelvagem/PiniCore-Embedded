@@ -1,11 +1,11 @@
-#include "battery.hpp"
+#include "basicbattery.hpp"
 #include "utils/time.hpp"
 #include <Arduino.h>
 
 namespace pinicore {
 
-#define BATTERY_ADC_DIVIDER 2.f
-#define ADC_DEFAULT_VREF    1100
+#define BATTERY_ADC_DIVIDER         2.f
+#define BATTERY_ADC_DEFAULT_VREF    1100
 
 #define BATTERY_READ_SAMPLE_COUNT   16      // Number of samples to take to average the voltage read.
 
@@ -39,7 +39,7 @@ static const float m_vbatLUT[101] = {
 };
 
 
-void Battery::init(uint8_t pin) {
+void BasicBattery::init(uint8_t pin) {
     m_pin = pin;
     
     analogReadResolution(12);
@@ -49,19 +49,19 @@ void Battery::init(uint8_t pin) {
         ADC_UNIT_1,
         ADC_ATTEN_DB_12,
         ADC_WIDTH_BIT_12,
-        ADC_DEFAULT_VREF,
+        BATTERY_ADC_DEFAULT_VREF,
         &m_adcChars
     );
 
     pinMode(m_pin, INPUT);
 }
 
-float Battery::voltage() {
+float BasicBattery::getVoltage() {
     return readVoltage();
 }
 
-uint8_t Battery::percentage() {
-    float volts = voltage();
+uint8_t BasicBattery::getPercentage() {
+    float volts = getVoltage();
     if (volts <= m_vbatLUT[0]) return 0;
 
     for (int i=100; i>0; --i) {
@@ -72,9 +72,9 @@ uint8_t Battery::percentage() {
     return 0;
 }
 
-float Battery::readVoltage() {
+float BasicBattery::readVoltage() {
     uint64_t currMillis = getMillis();
-    if (currMillis < m_lastReadAt + BATTERY_READ_INTERVAL_MS && m_lastReadAt != 0)
+    if (currMillis < m_lastReadAt + BASICBATTERY_READ_INTERVAL_MS && m_lastReadAt != 0)
         return m_lastVoltage;
     m_lastReadAt = currMillis;
 

@@ -18,17 +18,19 @@
 #define PINICORE_ENERGY_BATTERY_H
 
 #include <stdint.h>
+#include "ibattery.hpp"
 #include "esp_adc_cal.h"
 
 namespace pinicore {
 
-#define BATTERY_READ_INTERVAL_MS    5000    // Interval in milliseconds that should update the cached battery status.
+#define BASICBATTERY_READ_INTERVAL_MS    5000    // Interval in milliseconds that should update the cached battery status.
 
-class Battery {
+class BasicBattery : public IBattery {
     public:
         /**
          * @brief   Initialize the battery.
          * @param   pin Pin the battery read is connected to.
+         * @note	This function must be called prior to any other sensor specific functions.
          */
         void init(uint8_t pin);
 
@@ -36,16 +38,16 @@ class Battery {
          * @brief   Get voltage (V) of the battery connected.
          * @return  In Volts, if no battery connected the value should be above 4.2V, but not guaranteed.
          * @note    Battery read is cached for efficiency. Cached voltage value is only updated after
-         *          'BATTERY_READ_INTERVAL_MS' milliseconds since last read.
+         *          'BASICBATTERY_READ_INTERVAL_MS' milliseconds since last read.
          */
-        float voltage();
+        float getVoltage() override;
 
         /**
          * @brief   Get the current battery percentage by reading the current voltage and using a look-up table.
          * @return  Percentage [0..100] %.
          * @note    Internally calls 'voltage' and then uses its return value to convert it to percentage.
          */
-        uint8_t percentage();
+        uint8_t getPercentage() override;
 
 
     private:
@@ -53,7 +55,7 @@ class Battery {
          * @brief   Get voltage (V) of the battery connected.
          * @return  In Volts, if no battery connected the value should be above 4.2V, but not guaranteed.
          * @note    Battery read is cached for efficiency. Cached voltage value is only updated after
-         *          'BATTERY_READ_INTERVAL_MS' milliseconds since last read.
+         *          'BASICBATTERY_READ_INTERVAL_MS' milliseconds since last read.
          */
         float readVoltage();
 
