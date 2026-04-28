@@ -1,6 +1,6 @@
 /**
 * @file		battery.hpp
-* @brief	Battery management API.
+* @brief	Battery management API for MAX1704X.
 * @author	PiniponSelvagem
 * @note     Currently only targeted and tested with TTGO/LILYGO LoRa32 Display v1.6.1.
 *
@@ -14,8 +14,8 @@
 
 #pragma once
 
-#ifndef PINICORE_ENERGY_BATTERY_H
-#define PINICORE_ENERGY_BATTERY_H
+#ifndef PINICORE_ENERGY_MAX1704X_H
+#define PINICORE_ENERGY_MAX1704X_H
 
 #include <stdint.h>
 #include "ibattery.hpp"
@@ -53,4 +53,4 @@ class MAX1704X : public IBattery {
 
 } // pinicore
 
-#endif /* PINICORE_ENERGY_BATTERY_H */
+#endif /* PINICORE_ENERGY_MAX1704X_H */

@@ -1,6 +1,6 @@
 /**
-* @file		plantsensor.hpp
-* @brief	Plant Monitor Sensor from Sprig Labs, aka Root, data gather API.
+* @file		sprigc3.hpp
+* @brief	Sprig-C3 ESP32 from Sprig Labs.
 * @author	PiniponSelvagem
 *
 * Copyright(C) PiniponSelvagem
@@ -13,29 +13,20 @@
 
 #pragma once
 
-#ifndef PINICORE_SPRIGLABS_ROOT_PLANTSENSOR_H
-#define PINICORE_SPRIGLABS_ROOT_PLANTSENSOR_H
+#ifndef PINICORE_SPRIGLABS_SPRIGC3_H
+#define PINICORE_SPRIGLABS_SPRIGC3_H
 
 #include <stdint.h>
+#include "drivers/energy/max1704x.hpp"
 
 namespace pinicore {
 
-class SprigRoot {
+class SprigC3 {
     public:
         /**
-         * @brief   Initialize the battery.
-         * @param   pin Pin the battery read is connected to.
+         * @brief   Initialize the Sprig-C3.
          */
-        void init(uint8_t pin);
-
-        float readLux();
-
-        float readTemperature();
-        float readHumidity();
-
-        float readSoil();
-
-
+        void init();
 
         /**
          * @brief   Get voltage (V) of the battery connected.
@@ -43,26 +34,20 @@ class SprigRoot {
          * @note    Battery read is cached for efficiency. Cached voltage value is only updated after
          *          'BASICBATTERY_READ_INTERVAL_MS' milliseconds since last read.
          */
-        float getVoltage();
+        float getBatteryVoltage();
 
         /**
          * @brief   Get the current battery percentage by reading the current voltage and using a look-up table.
          * @return  Percentage [0..100] %.
          * @note    Internally calls 'voltage' and then uses its return value to convert it to percentage.
          */
-        uint8_t getPercentage();
+        uint8_t getBatteryPercentage();
 
-
+    
     private:
-        /**
-         * @brief   Get voltage (V) of the battery connected.
-         * @return  In Volts, if no battery connected the value should be above 4.2V, but not guaranteed.
-         * @note    Battery read is cached for efficiency. Cached voltage value is only updated after
-         *          'BASICBATTERY_READ_INTERVAL_MS' milliseconds since last read.
-         */
-        float readVoltage();
+        MAX1704X m_max1704x;
 };
 
 } // pinicore
 
-#endif /* PINICORE_SPRIGLABS_ROOT_PLANTSENSOR_H */
+#endif /* PINICORE_SPRIGLABS_SPRIGC3_H */

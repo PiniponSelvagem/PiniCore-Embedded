@@ -14,8 +14,8 @@
 
 #pragma once
 
-#ifndef PINICORE_ENERGY_BATTERY_H
-#define PINICORE_ENERGY_BATTERY_H
+#ifndef PINICORE_ENERGY_BASICBATTERY_H
+#define PINICORE_ENERGY_BASICBATTERY_H
 
 #include <stdint.h>
 #include "ibattery.hpp"
@@ -69,4 +69,4 @@ class BasicBattery : public IBattery {
 
 } // pinicore
 
-#endif /* PINICORE_ENERGY_BATTERY_H */
+#endif /* PINICORE_ENERGY_BASICBATTERY_H */

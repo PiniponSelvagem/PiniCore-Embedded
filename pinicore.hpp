@@ -60,6 +60,9 @@
 #include "drivers/energy/basicbattery.hpp"
 #include "drivers/energy/max1704x.hpp"
 
+#include "drivers/spriglabs/sprigc3/sprigc3.hpp"
+#include "drivers/spriglabs/root/sprigroot.hpp"
+
 #include "storage/storage.hpp"
 
 #include "communication/network/inetwork.hpp"

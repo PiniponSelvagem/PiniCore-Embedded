@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef PINICORE_SENSOR_LM35_H
-#define PINICORE_SENSOR_LM35_H
+#ifndef PINICORE_SENSOR_HDC1080_H
+#define PINICORE_SENSOR_HDC1080_H
 
 #include <stdint.h>
 #include <ClosedCube_HDC1080.h>
@@ -48,4 +48,4 @@ class HDC1080 {
 
 } // pinicore
 
-#endif /* PINICORE_SENSOR_LM35_H */
+#endif /* PINICORE_SENSOR_HDC1080_H */
