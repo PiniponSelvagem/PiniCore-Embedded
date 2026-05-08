@@ -1,6 +1,6 @@
 {
     "name": "PiniCore",
-    "version": "1.0.0-alpha",
+    "version": "1.0.1",
     "description": "Pini Embedded Library",
     "frameworks": ["arduino"],
     "platforms": ["espressif32"],
