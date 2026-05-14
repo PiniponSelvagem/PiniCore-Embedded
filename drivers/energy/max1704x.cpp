@@ -16,7 +16,12 @@ float MAX1704X::getVoltage() {
 }
 
 uint8_t MAX1704X::getPercentage() {
-    return m_max1704x.getSOC();
+    float soc = m_max1704x.getSOC();
+    return static_cast<uint8_t>(
+        soc < 0.0f ? 0.0f :
+        soc > 100.0f ? 100.0f :
+        soc
+    );
 }
 
 } // pinicore
