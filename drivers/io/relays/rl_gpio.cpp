@@ -12,10 +12,10 @@ void RelaysGPIO::init(uint8_t* pinRelays, uint8_t size, bool isActiveLow) {
     for (uint8_t i=0; i<size && i<RELAYS_GPIO_MAX; ++i) {
         m_pinRelays[i] = pinRelays[i];
         ++m_nRelays;
-
         pinMode(m_pinRelays[i], OUTPUT);
     }
-
+    
+    p_relaysPerModule = m_nRelays;
     initModules();
 }
 
@@ -26,7 +26,7 @@ bool RelaysGPIO::isModuleConnected(uint8_t module) {
 
 void RelaysGPIO::initModules() {
     p_modules = 1;
-    p_relaysPerModule = RELAYS_GPIO_MAX;
+    //p_relaysPerModule is being set in 'init'
     resetModuleState(0);
 }
 
