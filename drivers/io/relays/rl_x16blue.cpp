@@ -41,7 +41,7 @@ bool RelaysX16Blue::setHardware(uint8_t module, uint8_t relay, bool state) {
     }
 
     // Preparation
-    uint8_t bitState = state ? 1 : 0;   
+    uint8_t bitState = state ? 1 : 0;
     uint16_t requestedState = stateBeforeSet;
     requestedState &= ~(0x1 << relay);
     requestedState |= (bitState << relay);

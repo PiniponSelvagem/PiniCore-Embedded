@@ -50,6 +50,7 @@
 #include "drivers/io/relays/rl_virtual.hpp"
 #include "drivers/io/relays/rl_ts.hpp"
 #include "drivers/io/relays/rl_x16blue.hpp"
+#include "drivers/io/relays/rl_gpio.hpp"
 
 #include "drivers/sensor/environment/lm35.hpp"
 #include "drivers/sensor/environment/dht.hpp"

@@ -1,7 +1,6 @@
 /**
-* @file		rl_x16blue.hpp
-* @brief	Replays implementation for the ESP32-Relay-X16 board with 16 relays.
-*           More information at: https://devices.esphome.io/devices/esp32-relay-x16/
+* @file		rl_gpio.hpp
+* @brief	GPIO relays implementation, control relays directly from GPIO pins, up to 16 relays.
 * @author	PiniponSelvagem
 *
 * Copyright(C) PiniponSelvagem
@@ -14,30 +13,29 @@
 
 #pragma once
 
-#ifndef PINICORE_IO_RELAYS_X16BLUE_H
-#define PINICORE_IO_RELAYS_X16BLUE_H
+#ifndef PINICORE_IO_RELAYS_GPIO_H
+#define PINICORE_IO_RELAYS_GPIO_H
 
 #include <stdint.h>
 #include "irelays.hpp"
 
 namespace pinicore {
 
-class RelaysX16Blue : public IRelays {
+/**
+ * @brief	Maximum number of relays supported.
+ */
+#define RELAYS_GPIO_MAX  16
+
+class RelaysGPIO : public IRelays {
     public:
         /**
          * @brief   Initializes the configured relays.
-         * @param   pinEnable Pin to enable the shift register output.
-         * @param   pinLatch Pin that controls the latch signal for updating the relay states.
-         * @param   pinClock Pin used to clock data into the shift register.
-         * @param   pinData Pin used to shift relay state data into the register.
+         * @param   pinBtns: Pins array the relays are connected to.
+         * @param   size: Number of relays in the array. If 'size' is above 'RELAYS_GPIO_MAX', only the first 'RELAYS_GPIO_MAX' relays will be configured with the rest being ignored.
          * @param   isActiveLow Invert relays operation.
          * @note    This function must be called prior to any other Relays functions.
          */
-        void init(
-            uint8_t pinEnable = 5, uint8_t pinLatch = 12,
-            uint8_t pinClock = 13, uint8_t pinData = 14,
-            bool isActiveLow = false
-        );
+        void init(uint8_t* pinRelays, uint8_t size, bool isActiveLow = false);
 
         /**
          * @brief   Check if a module is connected.
@@ -66,12 +64,11 @@ class RelaysX16Blue : public IRelays {
         bool setHardware(uint8_t module, uint8_t relay, bool state) override;
 
 
-        uint8_t m_pinLatch;
-        uint8_t m_pinClock;
-        uint8_t m_pinData;
+        uint32_t m_nRelays;
+        uint8_t m_pinRelays[RELAYS_GPIO_MAX];
         bool m_isActiveLow;
 };
 
 } // pinicore
 
-#endif // PINICORE_IO_RELAYS_X16BLUE_H
+#endif // PINICORE_IO_RELAYS_GPIO_H
