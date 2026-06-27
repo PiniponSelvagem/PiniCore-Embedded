@@ -147,16 +147,14 @@ class IRelays {
         void updateActiveCount();
 
         /**
-         * @brief   Calcuate the bit position on th e \ref 'm_relaysState' of the relay for a particular module.
+         * @brief   Calculate the bit position on th e \ref 'm_relaysState' of the relay for a particular module.
          * @param   module The index of the module.
          * @param   relay The index of the relay in that module.
          * @param   wordIndex Return value, the calculated index in the \ref 'm_relaysState'.
          * @param   bitIndex Return value, the calculated bit index in the wordIndex.
          * @return  True if is valid, false otherwise.
-         * @warning Does NOT validate if module and relay are valid, only if the resulting globalIndex is valid
-         *          for the further internal calculations.
          */
-        bool calculateRelayIndex(uint8_t module, uint8_t relay, uint16_t* wordIndex, uint8_t* bitIndex);
+        bool calculateRelayIndex(uint8_t module, uint8_t relay, uint32_t* wordIndex, uint32_t* bitIndex);
 
         /**
          * @brief   Prints to serial using LOG the entire 'm_relaysState' array in binary.
