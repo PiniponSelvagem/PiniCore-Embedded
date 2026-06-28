@@ -70,7 +70,7 @@ const int IRelays::getRelaysPerModule() { return p_relaysPerModule; }
 
 bool IRelays::calculateRelayIndex(uint8_t module, uint8_t relay, uint32_t* wordIndex, uint32_t* bitIndex) {
     bool isValid = calculateBitIndex(
-        RELAYS_STATE_SIZE_MAX, RELAYS_STORAGE_BIT_SIZE,
+        RELAYS_STATE_SIZE_MAX,
         p_relaysPerModule,
         module, relay,
         wordIndex, bitIndex

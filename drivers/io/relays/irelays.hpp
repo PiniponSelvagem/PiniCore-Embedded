@@ -23,7 +23,7 @@
 namespace pinicore {
 
 #define RELAYS_MAX 256  // Maximum number of total relays supported by the library.
-#define RELAYS_STORAGE_BIT_SIZE (sizeof(uint32_t)*8)    // Size in bits of the type uses to store relays state.
+#define RELAYS_STORAGE_BIT_SIZE 32    // Size in bits of the type uses to store relays state.
 #define RELAYS_STATE_SIZE_MAX   (RELAYS_MAX / RELAYS_STORAGE_BIT_SIZE) // Size of the \ref 'm_relaysState' array.
 
 // user callbacks
