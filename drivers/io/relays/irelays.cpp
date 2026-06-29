@@ -1,6 +1,7 @@
 #include "irelays.hpp"
 #include "utils/log.hpp"
 #include "utils/print.hpp"
+#include "utils/array.hpp"
 
 namespace pinicore {
 
@@ -31,8 +32,7 @@ bool IRelays::set(uint8_t module, uint8_t relay, bool state) {
 
     bool changedState = setHardware(module, relay, state);
     if (changedState) {
-        uint16_t wordIndex;
-        uint8_t  bitIndex;
+        uint32_t wordIndex, bitIndex;
         bool isValid = calculateRelayIndex(module, relay, &wordIndex, &bitIndex);
         if (!isValid)
             return false;
@@ -57,8 +57,7 @@ bool IRelays::get(uint8_t module, uint8_t relay) {
     if (module >= p_modules || relay >= p_relaysPerModule)
         return false;
     
-    uint16_t wordIndex;
-    uint8_t  bitIndex;
+    uint32_t wordIndex, bitIndex;
     bool isValid = calculateRelayIndex(module, relay, &wordIndex, &bitIndex);
     if (!isValid)
         return false;
@@ -69,19 +68,14 @@ const int IRelays::getActiveCount() { return m_relaysActiveCount; }
 const int IRelays::getModulesMaxSupported() { return p_modules; }
 const int IRelays::getRelaysPerModule() { return p_relaysPerModule; }
 
-bool IRelays::calculateRelayIndex(uint8_t module, uint8_t relay, uint16_t* wordIndex, uint8_t* bitIndex) {
-    uint16_t globalIndex = module * p_relaysPerModule + relay;
-
-    if (globalIndex >= RELAYS_MAX)
-        return false;
-
-    *wordIndex = globalIndex / RELAYS_STORAGE_BIT_SIZE;
-    *bitIndex  = globalIndex % RELAYS_STORAGE_BIT_SIZE;
-
-    if (*wordIndex >= RELAYS_STATE_SIZE_MAX)
-        return false;
-
-    return true;
+bool IRelays::calculateRelayIndex(uint8_t module, uint8_t relay, uint32_t* wordIndex, uint32_t* bitIndex) {
+    bool isValid = calculateBitIndex(
+        RELAYS_STATE_SIZE_MAX,
+        p_relaysPerModule,
+        module, relay,
+        wordIndex, bitIndex
+    );
+    return isValid;
 }
 
 void IRelays::onRelay(RelaysOnRelayCallback callback) {
@@ -102,8 +96,7 @@ void IRelays::_onModule(uint8_t module, bool state) {
 }
 
 void IRelays::resetModuleState(uint8_t module) {
-    uint16_t wordIndex;
-    uint8_t  bitIndex;
+    uint32_t wordIndex, bitIndex;
     for (int r=0; r<p_relaysPerModule; ++r) {
         bool isValid = calculateRelayIndex(module, r, &wordIndex, &bitIndex);
         if (!isValid)   // Might not be necessary, but just in case

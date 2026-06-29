@@ -38,6 +38,8 @@
 #include "utils/watchdog.hpp"
 #include "utils/memory.hpp"
 #include "utils/calculation.hpp"
+#include "utils/array.hpp"
+#include "utils/convert.hpp"
 
 #include "system/board.hpp"
 #include "system/interrupt.hpp"

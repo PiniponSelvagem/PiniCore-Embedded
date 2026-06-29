@@ -23,7 +23,7 @@
 namespace pinicore {
 
 #define RELAYS_MAX 256  // Maximum number of total relays supported by the library.
-#define RELAYS_STORAGE_BIT_SIZE (sizeof(uint32_t)*8)    // Size in bits of the type uses to store relays state.
+#define RELAYS_STORAGE_BIT_SIZE 32    // Size in bits of the type uses to store relays state.
 #define RELAYS_STATE_SIZE_MAX   (RELAYS_MAX / RELAYS_STORAGE_BIT_SIZE) // Size of the \ref 'm_relaysState' array.
 
 // user callbacks
@@ -147,16 +147,14 @@ class IRelays {
         void updateActiveCount();
 
         /**
-         * @brief   Calcuate the bit position on th e \ref 'm_relaysState' of the relay for a particular module.
+         * @brief   Calculate the bit position on th e \ref 'm_relaysState' of the relay for a particular module.
          * @param   module The index of the module.
          * @param   relay The index of the relay in that module.
          * @param   wordIndex Return value, the calculated index in the \ref 'm_relaysState'.
          * @param   bitIndex Return value, the calculated bit index in the wordIndex.
          * @return  True if is valid, false otherwise.
-         * @warning Does NOT validate if module and relay are valid, only if the resulting globalIndex is valid
-         *          for the further internal calculations.
          */
-        bool calculateRelayIndex(uint8_t module, uint8_t relay, uint16_t* wordIndex, uint8_t* bitIndex);
+        bool calculateRelayIndex(uint8_t module, uint8_t relay, uint32_t* wordIndex, uint32_t* bitIndex);
 
         /**
          * @brief   Prints to serial using LOG the entire 'm_relaysState' array in binary.
