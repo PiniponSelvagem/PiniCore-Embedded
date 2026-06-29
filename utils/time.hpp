@@ -17,14 +17,22 @@
 #define PINICORE_UTILS_TIME_H
 
 #include <stdint.h>
+#include <time.h>
 
 namespace pinicore {
 
 /**
- * @brief Returns the milliseconds since BOOT.
- * @note Recommended to use this instead of Arduino "millis()" since that overflows after +/-49 days, because it uses 32 bits.
+ * @brief   Returns the milliseconds since BOOT.
+ * @note    Recommended to use this instead of Arduino "millis()" since that overflows after +/-49 days, because it uses 32 bits.
  */
 uint64_t getMillis();
+
+/**
+ * @brief   Convert timestamp to human readable datetime.
+ * @param   timestamp The timestamp to be converted.
+ * @param   dateTime A struct to be filled with the converted datetime.
+ */
+void timestamp2DateTime(time_t timestamp, struct tm* dateTime);
 
 } // pinicore
 
