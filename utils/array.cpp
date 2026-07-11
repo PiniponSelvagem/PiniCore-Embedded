@@ -23,4 +23,21 @@ bool calculateBitIndex(
     return true;
 }
 
+bool calculateSectionBit(
+    size_t arraySize,
+    uint32_t sectionSize,
+    uint32_t wordIndex, uint32_t bitIndex,
+    uint32_t* section, uint32_t* bit
+) {
+    if (wordIndex >= arraySize || bitIndex >= 32)
+        return false;
+
+    uint32_t globalIndex = (wordIndex << 5) + bitIndex;
+
+    *section = globalIndex / sectionSize;
+    *bit     = globalIndex % sectionSize;
+
+    return true;
+}
+
 } // pinicore

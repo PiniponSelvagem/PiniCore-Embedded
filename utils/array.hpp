@@ -39,6 +39,25 @@ bool calculateBitIndex(
     uint32_t* wordIndex, uint32_t* bitIndex
 );
 
+/**
+ * @brief   Calculate the section and bit on the provided 32-bit array that is divided by sections.
+ *          Similar to 'calculateBitIndex', but the inverse process.
+ * @param   arraySize The size of the array.
+ * @param   sectionSize The number of bits each section has.
+ * @param   wordIndex The index in the provided array.
+ * @param   bitIndex The bit index in the wordIndex.
+ * @param   section Return value, the index of the section.
+ * @param   bit Return value, the index of the bit in that section.
+ * @return  True if section and bit are valid, false otherwise.
+ * @note    Only 32-bit arrays are supported.
+ */
+bool calculateSectionBit(
+    size_t arraySize,
+    uint32_t sectionSize,
+    uint32_t wordIndex, uint32_t bitIndex,
+    uint32_t* section, uint32_t* bit
+);
+
 } // pinicore
 
 #endif // PINICORE_UTILS_ARRAY_H
