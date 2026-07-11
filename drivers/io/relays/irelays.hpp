@@ -50,6 +50,13 @@ class IRelays {
         bool set(uint8_t module, uint8_t relay, bool state);
 
         /**
+         * @brief   Set all relays to a new state.
+         * @param   state New state to set all the relays to.
+         * @return  True if any relay state was changed, false otherwise.
+         */
+        bool setAll(bool state);
+
+        /**
          * @brief   Get the current state of a relay.
          * @param   module Module index.
          * @param   relay Relay index inside the module.

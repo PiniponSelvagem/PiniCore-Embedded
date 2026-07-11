@@ -53,6 +53,16 @@ bool IRelays::set(uint8_t module, uint8_t relay, bool state) {
     return changedState;
 }
 
+bool IRelays::setAll(bool state) {
+    bool anyChangedState = false;
+    for (int m=0; m<p_modules; ++m) {
+        for (int r=0; r<p_relaysPerModule; ++r) {
+            anyChangedState |= set(m, r, state);
+        }
+    }
+    return anyChangedState;
+}
+
 bool IRelays::get(uint8_t module, uint8_t relay) {
     if (module >= p_modules || relay >= p_relaysPerModule)
         return false;
