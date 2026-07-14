@@ -6,7 +6,7 @@ namespace pinicore {
 
 #define PINICORE_TAG_WIFI   "pcore_wifi"
 
-#define WIFI_AUTORECONNECT_TIMEOUT_MS   (1*60*1000)
+#define WIFI_AUTORECONNECT_TIMEOUT_MS   (30*1000)
 
 void WiFiComm::init() {
     // Currently nothing to do
