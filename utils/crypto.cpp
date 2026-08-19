@@ -1,4 +1,4 @@
-#include "crypto.h"
+#include "crypto.hpp"
 #include <CRC32.h>
 
 namespace pinicore {
