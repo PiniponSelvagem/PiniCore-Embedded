@@ -13,7 +13,12 @@ size_t mavailableLargest() {
     return freeHeap;
 }
 
-size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap) {
+size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap, size_t bytesPerElement) {
+    if (!pMemory || targetBytes == 0 || dividerCap == 0 || bytesPerElement == 0) {
+        return 0;
+    }
+
+    *pMemory = nullptr;
     size_t freeHeap = mavailableLargest();
 
     size_t cappedBytes = freeHeap / dividerCap;
@@ -21,10 +26,16 @@ size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap) {
     if (cappedBytes > targetBytes) {
         cappedBytes = targetBytes;
     }
+    cappedBytes -= cappedBytes % bytesPerElement;
+
+    if (cappedBytes == 0) {
+        LOG_E(PINICORE_TAG_MEM, "Unable to allocate memory for %u bytes", targetBytes);
+        return 0;
+    }
     
     *pMemory = heap_caps_malloc(cappedBytes, MALLOC_CAP_8BIT);
 
-    if (pMemory) {
+    if (*pMemory) {
         LOG_D(PINICORE_TAG_MEM, "Allocated %u bytes", cappedBytes);
         return cappedBytes;
     }

@@ -32,6 +32,7 @@ size_t mavailableLargest();
  * @param   pMemory Pointer for the allocated memory.
  * @param   targetBytes Number of bytes to allocate if possible, target allocation.
  * @param   dividerCap If cannot allocate the target size, will try to allocate totalAllocalableSpace/'dividerCap'.
+ * @param   bytesPerElement Align allocated bytes to a multiple of this value. Defaults to 1 byte.
  * @return  Number of bytes allocated.
  * @note    Explanation of 'dividerCap' with an example:
  *              total available = 4096 bytes
@@ -43,7 +44,7 @@ size_t mavailableLargest();
  * @warning Because I know I will forget again... parameter 'pMemory' has to be casted like so:
  *          (void**)&buffer
  */
-size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap);
+size_t mallocTarget(void** pMemory, size_t targetBytes, uint32_t dividerCap, size_t bytesPerElement = 1);
 
 } // pinicore
 
