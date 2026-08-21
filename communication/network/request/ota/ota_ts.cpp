@@ -118,7 +118,7 @@ EOTAUpdateStatus OTATS::update() {
          */
         String hName  = http.readHeaderName();
         String hValue = http.readHeaderValue();
-        //LOG_T(PINICORE_TAG_OTA, "%s: %s", hName.c_str(), hValue.c_str());
+        //LOG_V(PINICORE_TAG_OTA, "%s: %s", hName.c_str(), hValue.c_str());
         
         hName.toLowerCase();
         if (hName == "x-esp32-sketch-md5")

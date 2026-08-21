@@ -41,27 +41,24 @@
 
 // Define log levels
 #define PLOG_LEVEL_NONE     0
-#define PLOG_LEVEL_FATAL    1
-#define PLOG_LEVEL_ERROR    2
-#define PLOG_LEVEL_WARN     3
-#define PLOG_LEVEL_INFO     4
-#define PLOG_LEVEL_DEBUG    5
-#define PLOG_LEVEL_TRACE    6
+#define PLOG_LEVEL_ERROR    1
+#define PLOG_LEVEL_WARN     2
+#define PLOG_LEVEL_INFO     3
+#define PLOG_LEVEL_DEBUG    4
+#define PLOG_LEVEL_VERBOSE  5
 
 #ifdef PLOG_NO_COLOR
-    #define PLOG_TEXT_FATAL "FATAL"
-    #define PLOG_TEXT_ERROR "ERROR"
-    #define PLOG_TEXT_WARN  "WARN "
-    #define PLOG_TEXT_INFO  "INFO "
-    #define PLOG_TEXT_DEBUG "DEBUG"
-    #define PLOG_TEXT_TRACE "TRACE"
+    #define PLOG_TEXT_ERROR   "E"
+    #define PLOG_TEXT_WARN    "W"
+    #define PLOG_TEXT_INFO    "I"
+    #define PLOG_TEXT_DEBUG   "D"
+    #define PLOG_TEXT_VERBOSE "V"
 #else
-    #define PLOG_TEXT_FATAL "\e[1;41mFATAL\e[0m"
-    #define PLOG_TEXT_ERROR "\e[1;31mERROR\e[0m"
-    #define PLOG_TEXT_WARN  "\e[1;33mWARN\e[0m "
-    #define PLOG_TEXT_INFO  "\e[1;32mINFO\e[0m "
-    #define PLOG_TEXT_DEBUG "\e[1;37mDEBUG\e[0m"
-    #define PLOG_TEXT_TRACE "\e[1;36mTRACE\e[0m"
+    #define PLOG_TEXT_ERROR   "\e[1;31mE\e[0m"
+    #define PLOG_TEXT_WARN    "\e[1;33mW\e[0m"
+    #define PLOG_TEXT_INFO    "\e[1;32mI\e[0m"
+    #define PLOG_TEXT_DEBUG   "\e[1;37mD\e[0m"
+    #define PLOG_TEXT_VERBOSE "\e[1;36mV\e[0m"
 #endif
 
 
@@ -74,40 +71,34 @@ void _plog_impl(const char* level, const char* klass, const char* fmt, ...);
 
 
 // Level-specific macros
-#if PLOG_LEVEL >= PLOG_LEVEL_FATAL
-  #define LOG_F(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_FATAL, klass, fmt, ##__VA_ARGS__)
-#else
-  #define LOG_F(klass, fmt, ...)
-#endif
-
-#if PLOG_LEVEL >= PLOG_LEVEL_ERROR
+#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_ERROR
   #define LOG_E(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_ERROR, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_E(klass, fmt, ...)
 #endif
 
-#if PLOG_LEVEL >= PLOG_LEVEL_WARN
+#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_WARN
   #define LOG_W(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_WARN, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_W(klass, fmt, ...)
 #endif
 
-#if PLOG_LEVEL >= PLOG_LEVEL_INFO
+#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_INFO
   #define LOG_I(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_INFO, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_I(klass, fmt, ...)
 #endif
 
-#if PLOG_LEVEL >= PLOG_LEVEL_DEBUG
+#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_DEBUG
   #define LOG_D(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_DEBUG, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_D(klass, fmt, ...)
 #endif
 
-#if PLOG_LEVEL >= PLOG_LEVEL_TRACE
-  #define LOG_T(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_TRACE, klass, fmt, ##__VA_ARGS__)
+#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_VERBOSE
+  #define LOG_V(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_VERBOSE, klass, fmt, ##__VA_ARGS__)
 #else
-  #define LOG_T(klass, fmt, ...)
+  #define LOG_V(klass, fmt, ...)
 #endif
 
 

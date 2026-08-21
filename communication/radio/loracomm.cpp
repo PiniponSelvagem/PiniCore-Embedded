@@ -107,7 +107,7 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
     if (
         sizeContent <= 0  // must contain space least 1 byte of usable payload, otherwise goes inside this 'IF'
     ) {
-        LOG_T(PINICORE_TAG_LORACOMM_CB, "Received unknown payload: [size: %d] [rssi: %d] [snr: %0.2f]", size, rssi, snr);
+        LOG_V(PINICORE_TAG_LORACOMM_CB, "Received unknown payload: [size: %d] [rssi: %d] [snr: %0.2f]", size, rssi, snr);
         return;
     }
 
@@ -115,7 +115,7 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
     uint32_t checksum = calculateChecksum(payloadContent, sizeContent, m_cryptoPhrase);
     LoRaHeader_t* header = (LoRaHeader_t*)payload;
     if (header->checksum != checksum) {
-        LOG_T(PINICORE_TAG_LORACOMM_CB, "Checksum mismatch: [expected: 0x%x] [actual: 0x%x]", header->checksum, checksum);
+        LOG_V(PINICORE_TAG_LORACOMM_CB, "Checksum mismatch: [expected: 0x%x] [actual: 0x%x]", header->checksum, checksum);
         return;
     }
 
@@ -123,7 +123,7 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
     uint8_t tagId = header->tagId;
     LOG_D(PINICORE_TAG_LORACOMM_CB, "Received: [radioId: %llu] [tagId: %d] [size: %d] [rssi: %d] [snr: %0.2f]", radioId, tagId, size, rssi, snr);
     if (m_isTerminal && m_terminalRadioId != radioId) {
-        LOG_T(PINICORE_TAG_LORACOMM, "Payload not for me, discarding...");
+        LOG_V(PINICORE_TAG_LORACOMM, "Payload not for me, discarding...");
         return; // Discard payloads not directed to me if I am a Terminal
     }
     
@@ -131,7 +131,7 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
 
     bool requiresAck = (header->flags & (0x1 << LORACOMM_FLAG_IDX_REQUIRE_ACK)) != 0;
     if (requiresAck) {
-        LOG_T(PINICORE_TAG_LORACOMM_CB, "Requires ACK, adding send ACK to queue");
+        LOG_V(PINICORE_TAG_LORACOMM_CB, "Requires ACK, adding send ACK to queue");
         sendAck(radioId, tagId, checksum);
     }
 
@@ -139,7 +139,7 @@ void LoRaComm::_onReceive(const uint8_t* payload, size_t size, int rssi, float s
     if (isAck) {
         LoRaSend_t* send = queueSendFind(radioId, checksum);
         queueSendRemove(send);
-        LOG_T(PINICORE_TAG_LORACOMM_CB, "ACK received! [*send: 0x%x]", send);
+        LOG_V(PINICORE_TAG_LORACOMM_CB, "ACK received! [*send: 0x%x]", send);
         return;
     }
     

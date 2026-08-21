@@ -63,6 +63,7 @@ bool RelaysTS::isModuleConnected(uint8_t module) {
     return m_modulesConnected & (0x1 << module);
 }
 
+
 void RelaysTS::initModules() {
     p_modules = 8;
     p_relaysPerModule = 16;

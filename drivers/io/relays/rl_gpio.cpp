@@ -28,6 +28,10 @@ void RelaysGPIO::initModules() {
     p_modules = 1;
     //p_relaysPerModule is being set in 'init'
     resetModuleState(0);
+    LOG_I(PINICORE_TAG_RELAYS_GPIO,
+        "GPIO relays configured (%d): [modules: %d] [relaysPerModule: %d]",
+        (p_modules*p_relaysPerModule), p_modules, p_relaysPerModule
+    );
 }
 
 bool RelaysGPIO::setHardware(uint8_t module, uint8_t relay, bool state) {

@@ -40,7 +40,7 @@ void LoRaTxRx::setTxPower(uint8_t power) {
     if (power > 20) {
         power = 20;
     }
-    //
+
     int outputPin;
     if (power < 15) {
         outputPin = PA_OUTPUT_RFO_PIN;
@@ -62,7 +62,7 @@ void LoRaTxRx::maintain() {
 
     if (!receive()) return; // check if new packet received, otherwise return
 
-    LOG_T(PINICORE_TAG_LORA, "Processing received payload, %lu bytes", m_packetReceived.size);
+    LOG_V(PINICORE_TAG_LORA, "Processing received payload, %lu bytes", m_packetReceived.size);
     _onReceive(m_packetReceived.payload, m_packetReceived.size, m_packetReceived.rssi, m_packetReceived.snr);
 }
 
@@ -78,12 +78,12 @@ void LoRaTxRx::disable() {
 
 void LoRaTxRx::send(const uint8_t* payload, size_t size) {
     size_t safeSize = (size>LORA_PACKET_MAX_SIZE) ? LORA_PACKET_MAX_SIZE : size;
-    LOG_T(PINICORE_TAG_LORA, "Preparing to send %lu bytes", safeSize);
+    LOG_V(PINICORE_TAG_LORA, "Preparing to send %lu bytes", safeSize);
     LoRa.beginPacket();
     LoRa.write(payload, safeSize);
     LoRa.endPacket();
     LoRa.receive();
-    LOG_T(PINICORE_TAG_LORA, "Sent %lu bytes", safeSize);
+    LOG_V(PINICORE_TAG_LORA, "Sent %lu bytes", safeSize);
 
     /* Statistics */
     m_statsBytesSent += safeSize;

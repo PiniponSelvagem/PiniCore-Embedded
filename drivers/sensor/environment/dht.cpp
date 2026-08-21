@@ -107,10 +107,10 @@ LABEL_EXIT_W_ERROR:
         case 0:
             break;
         case 1:
-            LOG_W(PINICORE_TAG_DHT, "Timeout waiting for start signal low pulse");
+            LOG_E(PINICORE_TAG_DHT, "Timeout waiting for start signal low pulse");
             return;
         case 2:
-            LOG_W(PINICORE_TAG_DHT, "Timeout waiting for start signal high pulse");
+            LOG_E(PINICORE_TAG_DHT, "Timeout waiting for start signal high pulse");
             return;
         default:
             break;
@@ -122,7 +122,7 @@ LABEL_EXIT_W_ERROR:
         uint32_t lowCycles = cycles[2 * i];
         uint32_t highCycles = cycles[2 * i + 1];
         if ((lowCycles == UINT32_MAX) || (highCycles == UINT32_MAX)) {
-            LOG_W(PINICORE_TAG_DHT, "Timeout waiting for pulse");
+            LOG_E(PINICORE_TAG_DHT, "Timeout waiting for pulse");
             return;
         }
         data[i / 8] <<= 1;
@@ -136,9 +136,9 @@ LABEL_EXIT_W_ERROR:
         // stored data.
     }
 
-    //LOG_T(PINICORE_TAG_DHT, "Received: 0x%02x%02x%02x%02x", data[0], data[1], data[2], data[3]);
+    //LOG_V(PINICORE_TAG_DHT, "Received: 0x%02x%02x%02x%02x", data[0], data[1], data[2], data[3]);
     uint8_t checksumExpected = data[0] + data[1] + data[2] + data[3];
-    //LOG_T(PINICORE_TAG_DHT, "Checksum: [actual: 0x%02x] [expected: 0x%02x]", data[4], checksumExpected);
+    //LOG_V(PINICORE_TAG_DHT, "Checksum: [actual: 0x%02x] [expected: 0x%02x]", data[4], checksumExpected);
 
     // Check we read 40 bits and that the checksum matches.
     if (data[4] != (checksumExpected & 0xFF)) {

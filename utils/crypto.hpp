@@ -17,6 +17,7 @@
 #define PINICORE_UTILS_CRYPTO_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 namespace pinicore {
 

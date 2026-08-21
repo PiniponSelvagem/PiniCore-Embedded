@@ -31,6 +31,10 @@ void RelaysX16Blue::initModules() {
     p_modules = 1;
     p_relaysPerModule = 16;
     resetModuleState(0);
+    LOG_I(PINICORE_TAG_RELAYS_X16BLUE,
+        "X16Blue relays configured (%d): [modules: %d] [relaysPerModule: %d]",
+        (p_modules*p_relaysPerModule), p_modules, p_relaysPerModule
+    );
 }
 
 bool RelaysX16Blue::setHardware(uint8_t module, uint8_t relay, bool state) {

@@ -21,6 +21,7 @@ bool RelaysVirtual::isModuleConnected(uint8_t module) {
     return (module < p_modules);
 }
 
+
 void RelaysVirtual::initModules() {
     if (p_modules == 0) {
         p_modules = 8;
