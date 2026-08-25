@@ -71,31 +71,31 @@ void _plog_impl(const char* level, const char* klass, const char* fmt, ...);
 
 
 // Level-specific macros
-#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_ERROR
+#if PLOG_LEVEL >= PLOG_LEVEL_ERROR
   #define LOG_E(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_ERROR, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_E(klass, fmt, ...)
 #endif
 
-#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_WARN
+#if PLOG_LEVEL >= PLOG_LEVEL_WARN
   #define LOG_W(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_WARN, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_W(klass, fmt, ...)
 #endif
 
-#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_INFO
+#if PLOG_LEVEL >= PLOG_LEVEL_INFO
   #define LOG_I(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_INFO, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_I(klass, fmt, ...)
 #endif
 
-#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_DEBUG
+#if PLOG_LEVEL >= PLOG_LEVEL_DEBUG
   #define LOG_D(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_DEBUG, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_D(klass, fmt, ...)
 #endif
 
-#if PLOG_EFFECTIVE_LEVEL >= PLOG_LEVEL_VERBOSE
+#if PLOG_LEVEL >= PLOG_LEVEL_VERBOSE
   #define LOG_V(klass, fmt, ...) PLOG_IMPL(PLOG_TEXT_VERBOSE, klass, fmt, ##__VA_ARGS__)
 #else
   #define LOG_V(klass, fmt, ...)
