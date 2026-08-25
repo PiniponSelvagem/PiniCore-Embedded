@@ -32,6 +32,9 @@ bool stringHex2Array(
             uint32_t wordIndex = globalIndex >> 5;
             uint32_t bitIndex  = globalIndex & 31;
 
+            if (wordIndex >= arraySize)
+                return false;
+
             array[wordIndex] |= (1u << bitIndex);
         }
 

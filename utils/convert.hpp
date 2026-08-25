@@ -30,7 +30,7 @@ namespace pinicore {
  * @param   array Pointer to the array.
  * @param   arraySize Size of the array.
  * @param   bitIndex Return value, the calculated bit index in the wordIndex.
- * @return  True if array was filled correctly, meaning the hex could fit the section. False otherwise.
+ * @return  True if array was filled correctly, meaning the hex could fit the section and the array. False otherwise.
  * @note    Section is a sub array that can be of any size.
  *          To use this function without sections, set 'sectionSize' equal to 'arraySize' and 'section' to 0.
  */
